@@ -13,7 +13,8 @@ public class MainMenuUI : MonoBehaviour
     private void Awake()
     {
         MultiplayerBtn.onClick.AddListener(() => {
-
+            GameMultiplayer.playMultiplayer = true;
+            Loader.Load(Loader.Scene.LobbyScene);
         });
         SingleplayerBtn.onClick.AddListener(() => {
             Loader.Load(Loader.Scene.SampleScene);
