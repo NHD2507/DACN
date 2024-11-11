@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/A PhatDat's Folder/TPD's Scene/LobbyScene.unity
     guid: fdd46ad5554410b48bcc87f69f82956c
+  - enabled: 1
+    path: Assets/A PhatDat's Folder/TPD's Scene/CharacterSelectScene.unity
+    guid: df173084e5b0ba745b4ac1e8f63b11cc
   - enabled: 0
     path: Assets/A PhatDat's Folder/TPD's Scene/TestingScene.unity
     guid: 27f7343da1287ad44ae1bb4330844f80

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +15,7 @@ public class MainMenuUI : MonoBehaviour
             Loader.Load(Loader.Scene.LobbyScene);
         });
         SingleplayerBtn.onClick.AddListener(() => {
+            GameMultiplayer.playMultiplayer = false;
             Loader.Load(Loader.Scene.SampleScene);
         });
         ExitBtn.onClick.AddListener(() => {

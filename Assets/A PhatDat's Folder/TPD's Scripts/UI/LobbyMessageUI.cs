@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -18,46 +17,46 @@ public class LobbyMessageUI : MonoBehaviour
 
     private void Start()
     {
-        //KitchenGameMultiplayer.Instance.OnFailedToJoinGame += KitchenGameMultiplayer_OnFailedToJoinGame;
-        //KitchenGameLobby.Instance.OnCreateLobbyStarted += KitchenGameLobby_OnCreateLobbyStarted;
-        //KitchenGameLobby.Instance.OnCreateLobbyFailed += KitchenGameLobby_OnCreateLobbyFailed;
-        //KitchenGameLobby.Instance.OnJoinStarted += KitchenGameLobby_OnJoinStarted;
-        //KitchenGameLobby.Instance.OnJoinFailed += KitchenGameLobby_OnJoinFailed;
-        //KitchenGameLobby.Instance.OnQuickJoinFailed += KitchenGameLobby_OnQuickJoinFailed;
+        GameMultiplayer.Instance.OnFailedToJoinGame += GameMultiplayer_OnFailedToJoinGame;
+        GameLobby.Instance.OnCreateLobbyStarted += GameLobby_OnCreateLobbyStarted;
+        GameLobby.Instance.OnCreateLobbyFailed += GameLobby_OnCreateLobbyFailed;
+        GameLobby.Instance.OnJoinStarted += GameLobby_OnJoinStarted;
+        GameLobby.Instance.OnJoinFailed += GameLobby_OnJoinFailed;
+        GameLobby.Instance.OnQuickJoinFailed += GameLobby_OnQuickJoinFailed;
 
         Hide();
     }
 
-    private void KitchenGameLobby_OnQuickJoinFailed(object sender, System.EventArgs e)
+    private void GameLobby_OnQuickJoinFailed(object sender, System.EventArgs e)
     {
-        ShowMessage("Could not find a Lobby to Quick Join!");
+        ShowMessage("Không tìm thấy sảnh để tham gia nhanh!");
     }
 
-    private void KitchenGameLobby_OnJoinFailed(object sender, System.EventArgs e)
+    private void GameLobby_OnJoinFailed(object sender, System.EventArgs e)
     {
-        ShowMessage("Failed to join Lobby!");
+        ShowMessage("Tham gia sảnh thất bại!");
     }
 
-    private void KitchenGameLobby_OnJoinStarted(object sender, System.EventArgs e)
+    private void GameLobby_OnJoinStarted(object sender, System.EventArgs e)
     {
-        ShowMessage("Joining Lobby...");
+        ShowMessage("Đang vào sảnh...");
     }
 
-    private void KitchenGameLobby_OnCreateLobbyFailed(object sender, System.EventArgs e)
+    private void GameLobby_OnCreateLobbyFailed(object sender, System.EventArgs e)
     {
-        ShowMessage("Failed to create Lobby!");
+        ShowMessage("Tạo sảnh thất bại!");
     }
 
-    private void KitchenGameLobby_OnCreateLobbyStarted(object sender, System.EventArgs e)
+    private void GameLobby_OnCreateLobbyStarted(object sender, System.EventArgs e)
     {
-        ShowMessage("Creating Lobby...");
+        ShowMessage("Đang tạo sảnh...");
     }
 
-    private void KitchenGameMultiplayer_OnFailedToJoinGame(object sender, System.EventArgs e)
+    private void GameMultiplayer_OnFailedToJoinGame(object sender, System.EventArgs e)
     {
         if (NetworkManager.Singleton.DisconnectReason == "")
         {
-            ShowMessage("Failed to connect");
+            ShowMessage("Kết nối thất bại");
         }
         else
         {
@@ -81,13 +80,13 @@ public class LobbyMessageUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    //private void OnDestroy()
-    //{
-    //    KitchenGameMultiplayer.Instance.OnFailedToJoinGame -= KitchenGameMultiplayer_OnFailedToJoinGame;
-    //    KitchenGameLobby.Instance.OnCreateLobbyStarted -= KitchenGameLobby_OnCreateLobbyStarted;
-    //    KitchenGameLobby.Instance.OnCreateLobbyFailed -= KitchenGameLobby_OnCreateLobbyFailed;
-    //    KitchenGameLobby.Instance.OnJoinStarted -= KitchenGameLobby_OnJoinStarted;
-    //    KitchenGameLobby.Instance.OnJoinFailed -= KitchenGameLobby_OnJoinFailed;
-    //    KitchenGameLobby.Instance.OnQuickJoinFailed -= KitchenGameLobby_OnQuickJoinFailed;
-    //}
+    private void OnDestroy()
+    {
+        GameMultiplayer.Instance.OnFailedToJoinGame -= GameMultiplayer_OnFailedToJoinGame;
+        GameLobby.Instance.OnCreateLobbyStarted -= GameLobby_OnCreateLobbyStarted;
+        GameLobby.Instance.OnCreateLobbyFailed -= GameLobby_OnCreateLobbyFailed;
+        GameLobby.Instance.OnJoinStarted -= GameLobby_OnJoinStarted;
+        GameLobby.Instance.OnJoinFailed -= GameLobby_OnJoinFailed;
+        GameLobby.Instance.OnQuickJoinFailed -= GameLobby_OnQuickJoinFailed;
+    }
 }

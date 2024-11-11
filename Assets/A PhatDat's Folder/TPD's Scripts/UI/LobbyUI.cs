@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Services.Lobbies.Models;
@@ -21,17 +20,17 @@ public class LobbyUI : MonoBehaviour
     private void Awake()
     {
         mainMenuButton.onClick.AddListener(() => {
-            //KitchenGameLobby.Instance.LeaveLobby();
+            GameLobby.Instance.LeaveLobby();
             Loader.Load(Loader.Scene.MainMenuScene);
         });
         createLobbyButton.onClick.AddListener(() => {
             lobbyCreateUI.Show();
         });
         quickJoinButton.onClick.AddListener(() => {
-            //KitchenGameLobby.Instance.QuickJoin();
+            GameLobby.Instance.QuickJoin();
         });
         joinCodeButton.onClick.AddListener(() => {
-            //KitchenGameLobby.Instance.JoinWithCode(joinCodeInputField.text);
+            GameLobby.Instance.JoinWithCode(joinCodeInputField.text);
         });
 
         lobbyTemplate.gameObject.SetActive(false);
@@ -39,19 +38,19 @@ public class LobbyUI : MonoBehaviour
 
     private void Start()
     {
-        //playerNameInputField.text = KitchenGameMultiplayer.Instance.GetPlayerName();
+        playerNameInputField.text = GameMultiplayer.Instance.GetPlayerName();
         playerNameInputField.onValueChanged.AddListener((string newText) => {
-            //KitchenGameMultiplayer.Instance.SetPlayerName(newText);
+            GameMultiplayer.Instance.SetPlayerName(newText);
         });
 
-        //KitchenGameLobby.Instance.OnLobbyListChanged += KitchenGameLobby_OnLobbyListChanged;
+        GameLobby.Instance.OnLobbyListChanged += GameLobby_OnLobbyListChanged;
         UpdateLobbyList(new List<Lobby>());
     }
 
-    //private void KitchenGameLobby_OnLobbyListChanged(object sender, KitchenGameLobby.OnLobbyListChangedEventArgs e)
-    //{
-    //    UpdateLobbyList(e.lobbyList);
-    //}
+    private void GameLobby_OnLobbyListChanged(object sender, GameLobby.OnLobbyListChangedEventArgs e)
+    {
+        UpdateLobbyList(e.lobbyList);
+    }
 
     private void UpdateLobbyList(List<Lobby> lobbyList)
     {
@@ -65,12 +64,12 @@ public class LobbyUI : MonoBehaviour
         {
             Transform lobbyTransform = Instantiate(lobbyTemplate, lobbyContainer);
             lobbyTransform.gameObject.SetActive(true);
-            //lobbyTransform.GetComponent<LobbyListSingleUI>().SetLobby(lobby);
+            lobbyTransform.GetComponent<LobbyListSingleUI>().SetLobby(lobby);
         }
     }
 
-    //private void OnDestroy()
-    //{
-    //    KitchenGameLobby.Instance.OnLobbyListChanged -= KitchenGameLobby_OnLobbyListChanged;
-    //}
+    private void OnDestroy()
+    {
+        GameLobby.Instance.OnLobbyListChanged -= GameLobby_OnLobbyListChanged;
+    }
 }

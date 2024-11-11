@@ -1,23 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ConnectingUI : MonoBehaviour
 {
     private void Start()
     {
-        //KitchenGameMultiplayer.Instance.OnTryingToJoinGame += KitchenGameMultiplayer_OnTryingToJoinGame;
-        //KitchenGameMultiplayer.Instance.OnFailedToJoinGame += KitchenGameManager_OnFailedToJoinGame;
+        GameMultiplayer.Instance.OnTryingToJoinGame += GameMultiplayer_OnTryingToJoinGame;
+        GameMultiplayer.Instance.OnFailedToJoinGame += GameManager_OnFailedToJoinGame;
 
         Hide();
     }
 
-    private void KitchenGameManager_OnFailedToJoinGame(object sender, System.EventArgs e)
+    private void GameManager_OnFailedToJoinGame(object sender, System.EventArgs e)
     {
         Hide();
     }
 
-    private void KitchenGameMultiplayer_OnTryingToJoinGame(object sender, System.EventArgs e)
+    private void GameMultiplayer_OnTryingToJoinGame(object sender, System.EventArgs e)
     {
         Show();
     }
@@ -32,9 +30,9 @@ public class ConnectingUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    //private void OnDestroy()
-    //{
-    //    KitchenGameMultiplayer.Instance.OnTryingToJoinGame -= KitchenGameMultiplayer_OnTryingToJoinGame;
-    //    KitchenGameMultiplayer.Instance.OnFailedToJoinGame -= KitchenGameManager_OnFailedToJoinGame;
-    //}
+    private void OnDestroy()
+    {
+        GameMultiplayer.Instance.OnTryingToJoinGame -= GameMultiplayer_OnTryingToJoinGame;
+        GameMultiplayer.Instance.OnFailedToJoinGame -= GameManager_OnFailedToJoinGame;
+    }
 }
