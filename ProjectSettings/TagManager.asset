@@ -13,6 +13,8 @@ TagManager:
   - Audio
   - Hour
   - CameraReach
+  - InteractableObject
+  - HMObjects
   layers:
   - Default
   - TransparentFX
@@ -25,13 +27,13 @@ TagManager:
   - Door
   - Player
   - item
-  - hand
+  - RightHand
   - post processing
   - hmObject
   - anomalyObject
-  - 
-  - 
-  - 
+  - Pickup
+  - Ground
+  - Interactable
   - 
   - 
   - 
