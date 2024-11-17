@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 
-public class InteractableDoor : MonoBehaviour, IInteractable
+public class InteractableDoor : NetworkBehaviour, IInteractable
 {
     [SerializeField] private Animator door;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip closeSound;
 
-    private bool isOpen = false;
+    private NetworkVariable<bool> isOpen = new NetworkVariable<bool>(false); // Đồng bộ trạng thái cửa
 
     public InteractionType GetInteractionType()
     {
@@ -16,33 +17,76 @@ public class InteractableDoor : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (isOpen)
+        // Chỉ client chủ sở hữu mới có thể tương tác và gửi tín hiệu tới server
+        if (IsOwner)
         {
-            CloseDoor();
+            ToggleDoorServerRpc(!isOpen.Value);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ToggleDoorServerRpc(bool open)
+    {
+        isOpen.Value = open; // Cập nhật trạng thái trên server
+        HandleDoorStateClientRpc(open); // Đồng bộ trạng thái trên tất cả các client
+    }
+
+    [ClientRpc]
+    private void HandleDoorStateClientRpc(bool open)
+    {
+        if (open)
+        {
+            OpenDoor();
         }
         else
         {
-            OpenDoor();
+            CloseDoor();
         }
     }
 
     private void OpenDoor()
     {
+        // Kích hoạt trigger "opened"
+        door.ResetTrigger("closed");
         door.SetTrigger("opened");
+
+        // Phát âm thanh mở cửa
         if (audioSource != null && openSound != null)
         {
             audioSource.PlayOneShot(openSound);
         }
-        isOpen = true;
+
+        Debug.Log("Door opened");
     }
 
     private void CloseDoor()
     {
+        // Kích hoạt trigger "closed"
+        door.ResetTrigger("opened");
         door.SetTrigger("closed");
+
+        // Phát âm thanh đóng cửa
         if (audioSource != null && closeSound != null)
         {
             audioSource.PlayOneShot(closeSound);
         }
-        isOpen = false;
+
+        Debug.Log("Door closed");
+    }
+
+    private void Start()
+    {
+        // Lắng nghe sự thay đổi của `isOpen` để đồng bộ trạng thái cửa
+        isOpen.OnValueChanged += (oldValue, newValue) =>
+        {
+            if (newValue)
+            {
+                OpenDoor();
+            }
+            else
+            {
+                CloseDoor();
+            }
+        };
     }
 }

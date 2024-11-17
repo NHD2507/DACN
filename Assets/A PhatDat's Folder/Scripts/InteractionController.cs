@@ -4,7 +4,6 @@ using Unity.Netcode;
 public class InteractionController : NetworkBehaviour
 {
     [Header("Interaction Settings")]
-    [SerializeField] private GameObject interactionHint;
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private LayerMask interactableLayer;
 
@@ -22,7 +21,6 @@ public class InteractionController : NetworkBehaviour
     {
         if (IsOwner)
         {
-            CheckForInteractable();
             HandleInteraction();
         }
     }
@@ -43,21 +41,6 @@ public class InteractionController : NetworkBehaviour
     //        }
     //    }
     //}
-
-    private void CheckForInteractable()
-    {
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactableLayer))
-        {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            if (interactable != null)
-            {
-                interactionHint.SetActive(true);
-                return;
-            }
-        }
-        interactionHint.SetActive(false);
-    }
 
     private void HandleInteraction()
     {
