@@ -1,69 +1,94 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using Unity.Netcode;
 using UnityEngine;
 
-public class OpenCloseDoor1 : MonoBehaviour
+public class OpenCloseDoor1 : NetworkBehaviour, IInteractable
 {
-    public GameObject txtDoor;             //display the UI text
-    public AudioSource audioSource;        //audio source
-    public AudioClip openSound;            //sound 1
-    public AudioClip closeSound;           //sound 2
-    public bool inReach, toggle;
-    //check if the player is in trigger
+    [Header("UI and Audio")]
+    public GameObject txtDoor; // UI Text hiển thị khi trong tầm tương tác
+    public AudioSource audioSource;
+    public AudioClip openSound;
+    public AudioClip closeSound;
 
-    public Animator door;
-    // Start is called before the first frame update
-    void Start()
+    [Header("Door Settings")]
+    public Animator door; // Animator cửa
+    private NetworkVariable<bool> doorState = new NetworkVariable<bool>(true); // true: cửa đóng, false: cửa mở
+
+    private bool isPlayerInRange = false; // Để kiểm tra trạng thái tương tác cục bộ
+
+    private void Start()
     {
-        inReach = false;                   //player not in zone       
-        toggle = true;
-        txtDoor.SetActive(false);
+        if (txtDoor != null) txtDoor.SetActive(false);
+
+        // Đăng ký sự kiện khi trạng thái cửa thay đổi
+        doorState.OnValueChanged += (oldState, newState) =>
+        {
+            if (newState) DoorCloseedLocal();
+            else DoorOpenedLocal();
+        };
+
+        // Cập nhật trạng thái ban đầu
+        UpdateDoorState(doorState.Value);
     }
 
-    public void OnTriggerStay(Collider other)
+    public InteractionType GetInteractionType()
     {
-        if (other.gameObject.tag == "Reach")     //if player in zone
+        return InteractionType.OpenDoor; // Xác định kiểu tương tác
+    }
+
+    public void Interact()
+    {
+        if (IsOwner) // Chỉ cho phép chủ sở hữu tương tác
         {
-            inReach = true;
-            txtDoor.SetActive(true);
+            ToggleDoorServerRpc();
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    public void ToggleDoor()
     {
-        if (other.gameObject.tag == "Reach")     //if player in zone
+        if (IsOwner)
         {
-            inReach = false;
-            txtDoor.SetActive(false);
+            ToggleDoorServerRpc();
         }
     }
-    // Update is called once per frame
-    void Update()
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ToggleDoorServerRpc()
     {
-        openclosedoor();
+        doorState.Value = !doorState.Value; // Đảo ngược trạng thái cửa
     }
-    void openclosedoor()
+
+    private void UpdateDoorState(bool isClosed)
     {
-        if (inReach && Input.GetKeyDown(KeyCode.E))           //if in zone and press E key
+        if (isClosed) DoorCloseedLocal();
+        else DoorOpenedLocal();
+    }
+
+    private void DoorOpenedLocal()
+    {
+        if (door != null)
         {
-            if (toggle) DoorOpened();
-            else DoorCloseed();
-            txtDoor.SetActive(false);
-            inReach = false;
+            door.ResetTrigger("closed");
+            door.SetTrigger("opened");
+        }
+
+        if (audioSource != null && openSound != null)
+        {
+            audioSource.PlayOneShot(openSound);
         }
     }
-    public void DoorOpened()
+
+    private void DoorCloseedLocal()
     {
-        door.ResetTrigger("closed");
-        door.SetTrigger("opened");
-        audioSource.PlayOneShot(openSound);
-        toggle = false;
-    }
-    public void DoorCloseed()
-    {
-        door.ResetTrigger("opened");
-        door.SetTrigger("closed");
-        audioSource.PlayOneShot(closeSound);  //play close sound
-        toggle = true;
+        if (door != null)
+        {
+            door.ResetTrigger("opened");
+            door.SetTrigger("closed");
+        }
+
+        if (audioSource != null && closeSound != null)
+        {
+            audioSource.PlayOneShot(closeSound);
+        }
     }
 }

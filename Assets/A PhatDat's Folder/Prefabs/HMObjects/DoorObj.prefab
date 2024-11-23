@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6287722945101144768}
   - component: {fileID: 2661723306701183952}
   - component: {fileID: 9123732055730583878}
-  - component: {fileID: 3009977037286202137}
   - component: {fileID: 6924186804936038146}
-  m_Layer: 13
+  - component: {fileID: 3009977037286202137}
+  m_Layer: 17
   m_Name: DoorObj
   m_TagString: InteractableObject
   m_Icon: {fileID: 0}
@@ -792,7 +792,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4614
+  m_VersionIndex: 4617
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -918,25 +918,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1374817, y: 0.07300001, z: 2.4066234}
   m_Center: {x: 0, y: 0.10104096, z: 0.00000011920929}
---- !u!114 &3009977037286202137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7664426595002377416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 987e7603b961c9249a48f9c9fdba5c7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txtDoor: {fileID: 0}
-  audioSource: {fileID: 0}
-  openSound: {fileID: 8300000, guid: 3f12866d49550b74c8d4943a012d4f0d, type: 3}
-  closeSound: {fileID: 8300000, guid: 8594045861499bd439f1f2656cbee410, type: 3}
-  inReach: 0
-  toggle: 0
-  door: {fileID: 0}
 --- !u!114 &6924186804936038146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,6 +939,23 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &3009977037286202137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664426595002377416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987e7603b961c9249a48f9c9fdba5c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtDoor: {fileID: 0}
+  audioSource: {fileID: 0}
+  openSound: {fileID: 8300000, guid: 3f12866d49550b74c8d4943a012d4f0d, type: 3}
+  closeSound: {fileID: 8300000, guid: 8594045861499bd439f1f2656cbee410, type: 3}
+  door: {fileID: 0}
 --- !u!1 &8582150494928362379
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +968,7 @@ GameObject:
   - component: {fileID: 6451272638734792560}
   - component: {fileID: 5855309022930532703}
   - component: {fileID: 8951354977553133932}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

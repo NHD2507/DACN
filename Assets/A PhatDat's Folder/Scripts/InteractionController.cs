@@ -13,7 +13,12 @@ public class InteractionController : NetworkBehaviour
     {
         if (IsOwner)
         {
+            // Tìm camera chỉ khi là chủ sở hữu
             playerCamera = Camera.main;
+            if (playerCamera == null)
+            {
+                Debug.LogError("No MainCamera found! Ensure your camera is tagged as 'MainCamera'.");
+            }
         }
     }
 
@@ -21,7 +26,14 @@ public class InteractionController : NetworkBehaviour
     {
         if (IsOwner)
         {
-            HandleInteraction();
+            if (playerCamera != null)
+            {
+                HandleInteraction();
+            }
+            else
+            {
+                Debug.LogWarning("PlayerCamera is null. Cannot handle interaction.");
+            }
         }
     }
 
@@ -36,7 +48,8 @@ public class InteractionController : NetworkBehaviour
     //            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
     //            if (interactable != null)
     //            {
-    //                interactable.Interact(); // Thực hiện hành động tương tác
+    //                ulong objectId = hit.collider.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
+    //                InteractServerRpc(objectId); // Gui yeu cau lên server
     //            }
     //        }
     //    }
@@ -46,30 +59,66 @@ public class InteractionController : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if (playerCamera == null)
+            {
+                Debug.LogWarning("PlayerCamera is null. Cannot cast ray.");
+                return;
+            }
+
             Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactableLayer))
             {
+                Debug.Log("Ray hit: " + hit.collider.gameObject.name);
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null)
                 {
-                    ulong objectId = hit.collider.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
-                    InteractServerRpc(objectId); // Gui yeu cau lên server
+                    var networkObj = hit.collider.gameObject.GetComponent<NetworkObject>();
+                    if (networkObj != null)
+                    {
+                        ulong objectId = networkObj.NetworkObjectId;
+                        InteractServerRpc(objectId); // Gửi yêu cầu lên server
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Object hit does not have a NetworkObject component.");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Object hit is not interactable.");
                 }
             }
         }
     }
 
+    //[ServerRpc]
+    //private void InteractServerRpc(ulong objectId)
+    //{
+    //    var networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
+    //    if (networkObject != null)
+    //    {
+    //        IInteractable interactable = networkObject.GetComponent<IInteractable>();
+    //        if (interactable != null)
+    //        {
+    //            interactable.Interact();
+    //        }
+    //    }
+    //}
+
     [ServerRpc]
     private void InteractServerRpc(ulong objectId)
     {
-        var networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
-        if (networkObject != null)
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
         {
             IInteractable interactable = networkObject.GetComponent<IInteractable>();
             if (interactable != null)
             {
                 interactable.Interact();
             }
+        }
+        else
+        {
+            Debug.LogWarning($"Object with ID {objectId} not found.");
         }
     }
 }
