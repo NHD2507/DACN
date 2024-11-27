@@ -13,7 +13,6 @@ TagManager:
   - Audio
   - Hour
   - CameraReach
-  - InteractableObject
   - HMObjects
   layers:
   - Default

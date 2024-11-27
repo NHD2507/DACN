@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -132,6 +133,25 @@ public class GameLobby : MonoBehaviour
         }
     }
 
+    // Hàm này để hủy phòng và khiến client rời khỏi lobby
+    public void HostCancelLobby()
+    {
+        if (NetworkManager.Singleton.IsHost)
+        {
+            // Hủy phòng, đuổi tất cả các client ra khỏi lobby
+            NetworkManager.Singleton.Shutdown();
+            Loader.LoadNetwork(Loader.Scene.LobbyScene);   // Chuyển về LobbyScene
+        }
+    }
+
+    public void KickPlayer(NetworkClient client)
+    {
+        if (NetworkManager.Singleton.IsHost)
+        {
+            // Ngắt kết nối client khỏi lobby
+            NetworkManager.Singleton.DisconnectClient(client.ClientId);
+        }
+    }
 
     private async Task<Allocation> AllocateRelay()
     {
@@ -203,7 +223,7 @@ public class GameLobby : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
 
             GameMultiplayer.Instance.StartHost();
-            Loader.LoadNetwork(Loader.Scene.CharacterSelectScene); 
+            Loader.LoadNetwork(Loader.Scene.WaitingRoomScene); 
         }
         catch (LobbyServiceException e)
         {

@@ -1,15 +1,8 @@
 ﻿using UnityEngine;
+using Unity.Netcode;
 
-public class InteractableItem : MonoBehaviour, IInteractable
+public class InteractableItem : NetworkBehaviour, IInteractable
 {
-    public string itemName;
-    public GameObject itemPrefab;
-    public Transform rightHandSlot;
-    public AudioSource audioSource;
-    public AudioClip pickUpSound;
-
-    private bool isPickedUp = false;
-
     public InteractionType GetInteractionType()
     {
         return InteractionType.PickUp;
@@ -17,25 +10,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (!isPickedUp)
-        {
-            PickUpItem();
-        }
-    }
-
-    private void PickUpItem()
-    {
-        isPickedUp = true;
-
-        GameObject pickedItem = Instantiate(itemPrefab, rightHandSlot.position, rightHandSlot.rotation);
-        pickedItem.transform.SetParent(rightHandSlot);
-
-        if (audioSource != null && pickUpSound != null)
-        {
-            audioSource.PlayOneShot(pickUpSound);
-        }
-
-        gameObject.SetActive(false);
-        Debug.Log("Picked up: " + itemName);
+        // Xử lý nhặt đồ (đã được quản lý trong InteractionController)
+        Debug.Log("Item picked up!");
     }
 }

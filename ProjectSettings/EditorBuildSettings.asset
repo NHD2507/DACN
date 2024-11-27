@@ -17,12 +17,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/A PhatDat's Folder/Scene/LobbyScene.unity
     guid: fdd46ad5554410b48bcc87f69f82956c
-  - enabled: 0
-    path: Assets/A PhatDat's Folder/Scene/CharacterSelectScene.unity
-    guid: df173084e5b0ba745b4ac1e8f63b11cc
   - enabled: 1
     path: Assets/A PhatDat's Folder/Scene/TestingScene.unity
     guid: e4317e69e6e4d4c44b413b1f558f6811
+  - enabled: 0
+    path: Assets/A PhatDat's Folder/Scene/WaitingRoomScene.unity
+    guid: c8c51fc1945a3c24f96e97455bc7612f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}

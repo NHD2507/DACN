@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5266373790837294884}
   - component: {fileID: 3569098761670718013}
-  - component: {fileID: 1657521012138714807}
+  - component: {fileID: 7766536259728414394}
+  - component: {fileID: 4634150045256031871}
   m_Layer: 17
   m_Name: TrigSwitch
   m_TagString: Untagged
@@ -56,7 +57,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1068512, y: 0.25883672, z: 0.089406684}
   m_Center: {x: -0.030451098, y: 0.013183335, z: 0.00088799093}
---- !u!114 &1657521012138714807
+--- !u!114 &7766536259728414394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +66,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 781738330416768000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f3ba0f9e0c45648a0f9604f9e92143, type: 3}
+  m_Script: {fileID: 11500000, guid: e5b69b6f80c1b8d46b58a59737321eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   switchON: {fileID: 3327300729667606272}
@@ -76,6 +77,27 @@ MonoBehaviour:
   sound1: {fileID: 8300000, guid: 3b0004cddb5e81b48801cfe3a048df70, type: 3}
   IsPower: 0
   IsBreaker: 0
+--- !u!114 &4634150045256031871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781738330416768000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 22028754
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &3040496009323734512
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5544183298866591062}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.707102, z: -0, w: -0.7071116}
+  m_LocalRotation: {x: -0, y: -0.70710045, z: 0, w: -0.70711315}
   m_LocalPosition: {x: 19.414, y: 3.995, z: -39.62}
   m_LocalScale: {x: 0.24401997, y: 0.31275997, z: 0.08229039}
   m_ConstrainProportionsScale: 0
@@ -356,8 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3594680320
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 3379553267
+  InScenePlacedSourceGlobalObjectIdHash: 3594680320
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

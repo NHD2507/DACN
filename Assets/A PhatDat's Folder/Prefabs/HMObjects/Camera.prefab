@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2072960782939449410}
   m_Layer: 17
   m_Name: PhotoCamera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -100,7 +100,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4297031145122606014}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &6601149229466446619
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,10 +400,10 @@ GameObject:
   - component: {fileID: 7003795807430720864}
   - component: {fileID: 6703308888085038945}
   - component: {fileID: -2431424947372439421}
-  - component: {fileID: -6861872369459102383}
+  - component: {fileID: 3370080071714131289}
   m_Layer: 17
   m_Name: Camera
-  m_TagString: HMObjects
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -579,7 +579,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.5997684
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -667,8 +667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4204903762
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 3708159656
+  InScenePlacedSourceGlobalObjectIdHash: 4204903762
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -676,7 +676,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &-6861872369459102383
+--- !u!114 &3370080071714131289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -688,8 +688,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e096de6614512a74caca16ef623350d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 
-  itemPrefab: {fileID: 9131359612053806973}
-  rightHandSlot: {fileID: 0}
-  audioSource: {fileID: 0}
-  pickUpSound: {fileID: 8300000, guid: cd0e0ba04e0ed94448bb6be8bb498fe8, type: 3}

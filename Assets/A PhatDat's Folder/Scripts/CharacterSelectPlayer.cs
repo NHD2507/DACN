@@ -25,7 +25,7 @@ public class CharacterSelectPlayer : MonoBehaviour
 
     private void Start()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += KitchenGameMultiplayer_OnPlayerDataNetworkListChanged;
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += GameMultiplayer_OnPlayerDataNetworkListChanged;
         CharacterSelectReady.Instance.OnReadyChanged += CharacterSelectReady_OnReadyChanged;
 
         kickButton.gameObject.SetActive(NetworkManager.Singleton.IsServer);
@@ -38,7 +38,7 @@ public class CharacterSelectPlayer : MonoBehaviour
         UpdatePlayer();
     }
 
-    private void KitchenGameMultiplayer_OnPlayerDataNetworkListChanged(object sender, System.EventArgs e)
+    private void GameMultiplayer_OnPlayerDataNetworkListChanged(object sender, System.EventArgs e)
     {
         UpdatePlayer();
     }
@@ -75,7 +75,7 @@ public class CharacterSelectPlayer : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= KitchenGameMultiplayer_OnPlayerDataNetworkListChanged;
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= GameMultiplayer_OnPlayerDataNetworkListChanged;
     }
 
 
