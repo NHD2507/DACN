@@ -58,7 +58,7 @@ public class InteractableSwitchLight : NetworkBehaviour, IInteractable
 
     public void LightOnOff(bool powerSource)
     {
-        IsBreaker = breaker.GetComponent<Breaker>().GetPowerState(); // Lấy trạng thái breaker
+        IsBreaker = breaker.GetComponent<InteractableBreaker>().GetPowerState(); // Lấy trạng thái breaker
         lightorobj.SetActive(powerSource && IsBreaker);
     }
 

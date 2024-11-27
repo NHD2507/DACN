@@ -693,9 +693,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494578176707100445}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.41, y: 3.828259, z: -54.284546}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7501, y: 0.76924, z: 0.69847}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1476105365753981471}
@@ -1003,8 +1003,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3680324526
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 3842630282
+  InScenePlacedSourceGlobalObjectIdHash: 3680324526
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -3320,7 +3320,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0350b03b36ef764a92bd00951dcd850, type: 2}
+  - {fileID: 2100000, guid: aaef2e0fdd146c34eb2081e2eff0ba94, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3425,7 +3425,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0350b03b36ef764a92bd00951dcd850, type: 2}
+  - {fileID: 2100000, guid: 125949a71c042f24abda4e5d7fe8bd5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3979,8 +3979,9 @@ GameObject:
   - component: {fileID: 2669511060226406596}
   - component: {fileID: 1277973776605599450}
   - component: {fileID: 4579887012320070293}
-  - component: {fileID: 270107861564947072}
   - component: {fileID: 351576322375182630}
+  - component: {fileID: 8434355597705449885}
+  - component: {fileID: 7672317755908845190}
   m_Layer: 17
   m_Name: "C\u1EA7n Dao Obj"
   m_TagString: Breaker
@@ -3997,8 +3998,8 @@ Transform:
   m_GameObject: {fileID: 8428254549583412921}
   serializedVersion: 2
   m_LocalRotation: {x: 0.915062, y: -0, z: -4.0017763e-11, w: 0.40331313}
-  m_LocalPosition: {x: 0.7913742, y: -0.3054738, z: 1.4440422}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.7913742, y: -0.31586, z: 1.4336}
+  m_LocalScale: {x: 1, y: 1, z: 1.1434}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3296695224827948816}
@@ -4069,20 +4070,6 @@ MonoBehaviour:
   openSound: {fileID: 8300000, guid: 3f12866d49550b74c8d4943a012d4f0d, type: 3}
   closeSound: {fileID: 8300000, guid: 8594045861499bd439f1f2656cbee410, type: 3}
   door: {fileID: 351576322375182630}
---- !u!114 &270107861564947072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8428254549583412921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfde02e6869a8a14ba0cd17ab7e1a7d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 3208583352137742997}
-  sound1: {fileID: 8300000, guid: 8427463bbf867e44482c0c2db7c63d68, type: 3}
 --- !u!95 &351576322375182630
 Animator:
   serializedVersion: 5
@@ -4104,6 +4091,44 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8434355597705449885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428254549583412921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2884313274
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &7672317755908845190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428254549583412921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d1ecf041da5e945a66a453c344a0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 3208583352137742997}
+  sound1: {fileID: 8300000, guid: 8427463bbf867e44482c0c2db7c63d68, type: 3}
+  breakerAnimator: {fileID: 351576322375182630}
+  onTrigger: TurnOn
+  offTrigger: TurnOff
 --- !u!1 &8497241534961265213
 GameObject:
   m_ObjectHideFlags: 0
@@ -4117,6 +4142,7 @@ GameObject:
   - component: {fileID: 2073734267485438170}
   - component: {fileID: 6839737935990494633}
   - component: {fileID: 2920588551831590539}
+  - component: {fileID: 9190909703862734523}
   m_Layer: 17
   m_Name: "C\u1EEDaObj"
   m_TagString: Untagged
@@ -4133,7 +4159,7 @@ Transform:
   m_GameObject: {fileID: 8497241534961265213}
   serializedVersion: 2
   m_LocalRotation: {x: 6.0396126e-11, y: -0.0000000091968095, z: -0.00000008951973, w: 1}
-  m_LocalPosition: {x: 0.10590887, y: -0.16293883, z: 1.1597719}
+  m_LocalPosition: {x: 0.10590887, y: -0.16293883, z: 1.162}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4226,6 +4252,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9190909703862734523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497241534961265213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2686860883
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &8576953741980756889
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,80 +1,74 @@
-﻿using Unity.Netcode;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class LightOnOffNew : NetworkBehaviour, IInteractable
+public class LightOnOffNew : MonoBehaviour
 {
-    [Header("Switch Settings")]
+    public GameObject txtToDisplay;             //display the UI text
+
+    private bool PlayerInZone;                  //check if the player is in trigger
+    public AudioSource audioSource; // Add this
+    public AudioClip sound1; // Add this
+
     public GameObject switchON, switchOFF;
+
     public GameObject lightorobj, breaker;
 
-    [Header("Audio Settings")]
-    public AudioSource audioSource;
-    public AudioClip sound1;
+    public bool IsPower, IsBreaker;
 
-    [Header("Power Settings")]
-    public bool IsPower = true; // Trạng thái mặc định của nguồn điện
-    public bool IsBreaker = true; // Trạng thái mặc định của breaker (có điện hay không)
-
-    private NetworkVariable<bool> syncedPowerState = new NetworkVariable<bool>(true);
-
-    public InteractionType GetInteractionType()
+    // Start is called before the first frame update
+    void Start()
     {
-        return InteractionType.PickUp; // Hoặc một loại tương tác phù hợp
+        breaker = GameObject.FindGameObjectWithTag("Breaker");
+        IsPower = true;
+        PlayerInZone = false;                   //player not in zone       
+        txtToDisplay.SetActive(false);
+        switchON.SetActive(true);
+        switchOFF.SetActive(false);
     }
 
-    public void Interact()
+    // Update is called once per frame
+    void Update()
     {
-        if (IsOwner)
+        if (PlayerInZone && Input.GetKeyDown(KeyCode.E))           //if in zone and press E key
         {
-            TogglePowerServerRpc(!syncedPowerState.Value);
+            IsPower = !IsPower;
+            switchON.SetActive(!switchON.activeSelf);
+            switchOFF.SetActive(!switchOFF.activeSelf);
+            audioSource.clip = sound1; // Add this
+            audioSource.Play(); // Add this
         }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void TogglePowerServerRpc(bool newPowerState)
-    {
-        syncedPowerState.Value = newPowerState;
-        HandleLightStateClientRpc(newPowerState);
-    }
-
-    [ClientRpc]
-    private void HandleLightStateClientRpc(bool powerState)
-    {
-        UpdateSwitchState(powerState);
-        LightOnOff(powerState);
-    }
-
-    private void UpdateSwitchState(bool powerState)
-    {
-        IsPower = powerState; // Cập nhật trạng thái cục bộ
-        switchON.SetActive(powerState);
-        switchOFF.SetActive(!powerState);
-
-        if (audioSource != null && sound1 != null)
-        {
-            audioSource.PlayOneShot(sound1);
-        }
-    }
-
-    public void LightOnOff(bool powerSource)
-    {
-        IsBreaker = breaker.GetComponent<Breaker>().GetPowerState(); // Lấy trạng thái breaker
-        lightorobj.SetActive(powerSource && IsBreaker);
-    }
-
-    private void Start()
-    {
-        // Đồng bộ trạng thái nguồn ban đầu
-        syncedPowerState.Value = IsPower;
-
-        syncedPowerState.OnValueChanged += (oldValue, newValue) =>
-        {
-            UpdateSwitchState(newValue);
-            LightOnOff(newValue);
-        };
-
-        // Cập nhật trạng thái hiển thị ban đầu
-        UpdateSwitchState(IsPower);
         LightOnOff(IsPower);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Reach")  //if player in zone
+        {
+            txtToDisplay.SetActive(true);
+            PlayerInZone = true;
+        }
+    }
+
+
+    private void OnTriggerExit(Collider other)     //if player exit zone
+    {
+        if (other.gameObject.tag == "Reach")
+        {
+            PlayerInZone = false;
+            txtToDisplay.SetActive(false);
+        }
+    }
+    public void LightOnOff(bool powersource)
+    {
+        IsBreaker = breaker.GetComponent<Breaker>().powerSource;
+        if (IsBreaker)
+        {
+            lightorobj.SetActive(powersource);
+        }
+        else
+        {
+            lightorobj.SetActive(false);
+        }
     }
 }
