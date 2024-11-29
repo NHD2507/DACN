@@ -3978,7 +3978,6 @@ GameObject:
   - component: {fileID: 1476105365753981471}
   - component: {fileID: 2669511060226406596}
   - component: {fileID: 1277973776605599450}
-  - component: {fileID: 4579887012320070293}
   - component: {fileID: 351576322375182630}
   - component: {fileID: 8434355597705449885}
   - component: {fileID: 7672317755908845190}
@@ -4053,23 +4052,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2696799, y: 0.57555604, z: 0.28935334}
   m_Center: {x: -0.008344647, y: -0.20076941, z: -0.09279866}
---- !u!114 &4579887012320070293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8428254549583412921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 987e7603b961c9249a48f9c9fdba5c7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txtDoor: {fileID: 0}
-  audioSource: {fileID: 3208583352137742997}
-  openSound: {fileID: 8300000, guid: 3f12866d49550b74c8d4943a012d4f0d, type: 3}
-  closeSound: {fileID: 8300000, guid: 8594045861499bd439f1f2656cbee410, type: 3}
-  door: {fileID: 351576322375182630}
 --- !u!95 &351576322375182630
 Animator:
   serializedVersion: 5
@@ -4103,8 +4085,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2884313274
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 2539803620
+  InScenePlacedSourceGlobalObjectIdHash: 3680324526
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4143,6 +4125,7 @@ GameObject:
   - component: {fileID: 6839737935990494633}
   - component: {fileID: 2920588551831590539}
   - component: {fileID: 9190909703862734523}
+  - component: {fileID: 3220258202655489873}
   m_Layer: 17
   m_Name: "C\u1EEDaObj"
   m_TagString: Untagged
@@ -4194,7 +4177,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8497241534961265213}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 987e7603b961c9249a48f9c9fdba5c7e, type: 3}
   m_Name: 
@@ -4203,6 +4186,8 @@ MonoBehaviour:
   audioSource: {fileID: 3208583352137742997}
   openSound: {fileID: 8300000, guid: 3f12866d49550b74c8d4943a012d4f0d, type: 3}
   closeSound: {fileID: 8300000, guid: 8594045861499bd439f1f2656cbee410, type: 3}
+  inReach: 0
+  toggle: 0
   door: {fileID: 2920588551831590539}
 --- !u!54 &6839737935990494633
 Rigidbody:
@@ -4264,8 +4249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2686860883
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 4176444342
+  InScenePlacedSourceGlobalObjectIdHash: 3680324526
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4273,6 +4258,23 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &3220258202655489873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497241534961265213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98e8d92b70a4864faec10f0cc4ab388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtDoor: {fileID: 0}
+  audioSource: {fileID: 3208583352137742997}
+  openSound: {fileID: 8300000, guid: 3f12866d49550b74c8d4943a012d4f0d, type: 3}
+  closeSound: {fileID: 8300000, guid: 8594045861499bd439f1f2656cbee410, type: 3}
+  door: {fileID: 2920588551831590539}
 --- !u!1 &8576953741980756889
 GameObject:
   m_ObjectHideFlags: 0

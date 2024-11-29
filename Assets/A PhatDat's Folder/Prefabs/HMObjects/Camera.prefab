@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 6703308888085038945}
   - component: {fileID: -2431424947372439421}
   - component: {fileID: 3370080071714131289}
+  - component: {fileID: 7724190025866271333}
   m_Layer: 17
   m_Name: Camera
   m_TagString: Item
@@ -505,7 +506,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9131359612053806973}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6869c6e074f9e8f4d8e57f131a6d7ea6, type: 3}
   m_Name: 
@@ -528,7 +529,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9131359612053806973}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 578bfac9402a0d34a93dae76e01f7d79, type: 3}
   m_Name: 
@@ -541,7 +542,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9131359612053806973}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33d55730b1a9c65449292d22fb8d25ff, type: 3}
   m_Name: 
@@ -667,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3708159656
+  GlobalObjectIdHash: 3749686797
   InScenePlacedSourceGlobalObjectIdHash: 4204903762
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -688,3 +689,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e096de6614512a74caca16ef623350d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7724190025866271333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131359612053806973}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee96bb84917891443a9c669a99cc255e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}

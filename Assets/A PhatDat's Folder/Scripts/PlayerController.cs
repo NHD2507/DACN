@@ -1,9 +1,8 @@
-﻿using System.Globalization;
-using Unity.Netcode;
+﻿using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : NetworkBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     [Header("Movement Settings")]
     [SerializeField] private float walkSpeed = 5f;
@@ -30,7 +29,7 @@ public class PlayerController : NetworkBehaviour
         characterController = GetComponent<CharacterController>();
 
         // Chỉ kích hoạt camera và điều khiển trên client local
-        if (IsOwner)
+        if (photonView.IsMine)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -42,8 +41,11 @@ public class PlayerController : NetworkBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleMouseLook();
+        if (photonView.IsMine) // Chỉ cho phép điều khiển nếu là chủ sở hữu (player local)
+        {
+            HandleMovement();
+            HandleMouseLook();
+        }
     }
 
     private void HandleMovement()

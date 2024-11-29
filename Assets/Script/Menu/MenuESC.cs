@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuESC : MonoBehaviour
+public class MenuESC : NetworkBehaviour
 {
     public GameObject pauseMenuUI;
     public GameObject optionsMenuUI;
@@ -37,7 +38,7 @@ public class MenuESC : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0; // Tạm dừng game
+        Time.timeScale = 1; // Tạm dừng game
     }
 
     public void OpenOptions()
@@ -47,8 +48,32 @@ public class MenuESC : MonoBehaviour
 
     public void ExitToMenu()
     {
+        // Dừng game và ngắt kết nối nếu là host
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+
         LoadingMainMenu.SetActive(true);
-        SceneManager.LoadScene(0);
-        Time.timeScale = 1; // Đảm bảo rằng game tiếp tục khi quay lại menu chính
+        SceneManager.LoadScene(0); // Quay về scene chính
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Kiểm tra nếu quay về scene chính (scene 0) và ngắt kết nối host
+        if (scene.buildIndex == 0 && NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Đảm bảo ngắt kết nối khi đối tượng này bị hủy
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+    }
+
 }
