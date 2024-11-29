@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using Photon.Realtime;
+using Photon.Pun;
+using TMPro;
 
 public class PlayerItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public TMP_Text playerName;
+    public Button kickButton;
+    private Player player;
+
+    public void SetPlayerInfo(Player _player)
     {
-        
+        player = _player;
+        playerName.text = _player.NickName;
+
+        // Chỉ hiển thị nút Kick nếu người chơi hiện tại là MasterClient và người này không phải chính họ
+        kickButton.gameObject.SetActive(PhotonNetwork.IsMasterClient && _player != PhotonNetwork.LocalPlayer);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClickKickButton()
     {
-        
+        // Gọi hàm KickPlayer từ LobbyManager
+        FindObjectOfType<LobbyManager>().KickPlayer(player);
     }
 }
