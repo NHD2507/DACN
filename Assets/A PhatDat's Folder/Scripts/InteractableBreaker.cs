@@ -1,79 +1,53 @@
-﻿using System.Globalization;
-using Unity.Netcode;
-using UnityEngine;
+﻿using UnityEngine;
+using Photon.Pun;
 
-public class InteractableBreaker : NetworkBehaviour, IInteractable
+public class InteractableBreaker : MonoBehaviour, IInteractable
 {
-    private NetworkVariable<bool> powerSource = new NetworkVariable<bool>(true); // Đồng bộ trạng thái breaker
-    public AudioSource audioSource;
-    public AudioClip sound1;
+    [SerializeField] private bool powerSource = true; // Trạng thái nguồn điện
+    [SerializeField] private AudioSource audioSource; // Âm thanh
+    [SerializeField] private AudioClip toggleSound; // Âm thanh bật/tắt nguồn
 
-    [SerializeField] private Animator breakerAnimator; // Animator của Breaker
-    [SerializeField] private string onTrigger = "TurnOn"; // Tên Trigger cho trạng thái ON
-    [SerializeField] private string offTrigger = "TurnOff"; // Tên Trigger cho trạng thái OFF
+    // Reference tới PhotonView
+    private PhotonView photonView;
 
-    private void Start()
+    private void Awake()
     {
-        // Cập nhật trạng thái khi bắt đầu (dành cho Client kết nối sau)
-        UpdateBreakerAnimation(powerSource.Value);
-
-        // Lắng nghe thay đổi trạng thái trên NetworkVariable
-        powerSource.OnValueChanged += OnPowerSourceChanged;
-    }
-
-    private void OnDestroy()
-    {
-        powerSource.OnValueChanged -= OnPowerSourceChanged;
-    }
-
-    private void OnPowerSourceChanged(bool previousValue, bool newValue)
-    {
-        UpdateBreakerAnimation(newValue);
-    }
-
-    private void UpdateBreakerAnimation(bool isOn)
-    {
-        // Cập nhật trạng thái animation của breaker
-        if (breakerAnimator != null)
-        {
-            // Gửi trigger cho Animator tùy theo trạng thái
-            breakerAnimator.SetTrigger(isOn ? onTrigger : offTrigger);
-        }
-
-        Debug.Log($"Breaker is now {(isOn ? "ON" : "OFF")}");
+        photonView = GetComponent<PhotonView>();
     }
 
     public InteractionType GetInteractionType()
     {
-        return InteractionType.PickUp; // Hoặc loại tương tác phù hợp
+        return InteractionType.TogglePower; // Loại tương tác
     }
 
     public void Interact()
     {
-        if (IsOwner)
+        if (photonView.IsMine || PhotonNetwork.IsMasterClient)
         {
-            ToggleBreakerStateServerRpc(!powerSource.Value);
+            // Chỉ chủ sở hữu hoặc Master Client mới được phép gửi tín hiệu
+            photonView.RPC(nameof(TogglePower), RpcTarget.All, !powerSource);
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void ToggleBreakerStateServerRpc(bool newPowerState)
+    [PunRPC]
+    private void TogglePower(bool newState)
     {
-        powerSource.Value = newPowerState; // Cập nhật trạng thái
-        HandleBreakerStateClientRpc(newPowerState); // Đồng bộ hóa âm thanh
+        powerSource = newState; // Cập nhật trạng thái nguồn điện
+        PlayToggleSound(); // Phát âm thanh bật/tắt
+        Debug.Log($"Breaker power source toggled: {powerSource}");
     }
 
-    [ClientRpc]
-    private void HandleBreakerStateClientRpc(bool newState)
+    private void PlayToggleSound()
     {
-        if (audioSource != null && sound1 != null)
+        if (audioSource != null && toggleSound != null)
         {
-            audioSource.PlayOneShot(sound1);
+            audioSource.PlayOneShot(toggleSound);
         }
     }
 
+    // Thêm phương thức này để trả về trạng thái powerSource
     public bool GetPowerState()
     {
-        return powerSource.Value;
+        return powerSource;
     }
 }

@@ -9,11 +9,11 @@ public static class Loader
     public enum Scene
     {
         MainMenuScene,
-        SampleScene,
+        SingleplayerScene,
+        MultilayerScene,
         LoadingScene,
-        LobbyScene,
-        CharacterSelectScene,
-        WaitingRoomScene,
+        Lobby,
+        ConnectedToServer
     }
 
     private static Scene targetScene;

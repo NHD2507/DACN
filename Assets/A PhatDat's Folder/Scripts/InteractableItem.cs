@@ -1,16 +1,16 @@
-﻿using UnityEngine;
-using Unity.Netcode;
+﻿using Photon.Pun;
+using UnityEngine;
 
-public class InteractableItem : NetworkBehaviour, IInteractable
+public class InteractableItem : MonoBehaviour, IInteractable
 {
     public InteractionType GetInteractionType()
     {
         return InteractionType.PickUp;
     }
 
+    [PunRPC]
     public void Interact()
     {
-        // Xử lý nhặt đồ (đã được quản lý trong InteractionController)
         Debug.Log("Item picked up!");
     }
 }

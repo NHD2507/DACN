@@ -1,6 +1,6 @@
 ﻿public enum InteractionType
 {
     PickUp,     // Nhặt đồ
-    OpenDoor   // Mở cửa
-    //Inspect     // Kiểm tra đối tượng
+    OpenDoor,   // Mở cửa
+    TogglePower     // Bật tắt power
 }

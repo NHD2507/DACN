@@ -17,9 +17,8 @@ GameObject:
   - component: {fileID: 6586573252527991043}
   - component: {fileID: 6776956741904654830}
   - component: {fileID: 2428381414728343555}
-  - component: {fileID: 6539990296662467438}
   - component: {fileID: 4815998706562583466}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: FlashLight
   m_TagString: InteractableObject
   m_Icon: {fileID: 0}
@@ -359,18 +358,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6539990296662467438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4497804891748991358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e68497d9191b9f5478787ac836e79cf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4815998706562583466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1286022956
+  GlobalObjectIdHash: 1540141387
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -402,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4452504004283096143}
   - component: {fileID: 2794331424726651689}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: "\u0110\xE8n \u0110\xE8n Pin"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

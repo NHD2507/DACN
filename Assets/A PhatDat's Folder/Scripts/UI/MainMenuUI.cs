@@ -11,10 +11,10 @@ public class MainMenuUI : MonoBehaviour
     private void Awake()
     {
         MultiplayerBtn.onClick.AddListener(() => {
-            Loader.Load(Loader.Scene.LobbyScene);
+            Loader.Load(Loader.Scene.ConnectedToServer);
         });
         SingleplayerBtn.onClick.AddListener(() => {
-            Loader.Load(Loader.Scene.SampleScene);
+            Loader.Load(Loader.Scene.SingleplayerScene);
         });
         ExitBtn.onClick.AddListener(() => {
             Application.Quit();

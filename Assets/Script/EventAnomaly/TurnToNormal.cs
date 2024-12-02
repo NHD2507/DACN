@@ -15,15 +15,49 @@ public class TurnToNormal : MonoBehaviour
     public bool ena;
     [SerializeField] private PhotoCD _photoCD;
     public SetTriggerNumber triggerNumber;
-    // Start is called before the first frame update
+
     void Start()
     {
-        inCameraReach = false;                   //player not in zone       
+        inCameraReach = false;
         txtToDisplay.SetActive(false);
         ena = false;
-        _photoCD = Camera.GetComponent<Photograph>()._photoCD;
-        triggerNumber = GameObject.Find("AllAnomalys").GetComponent<SetTriggerNumber>();
+
+        if (Camera != null)
+        {
+            Photograph photoComponent = Camera.GetComponent<Photograph>();
+            if (photoComponent == null)
+            {
+                Debug.LogError("Photograph component not found on Camera.");
+            }
+            else
+            {
+                _photoCD = photoComponent._photoCD;
+                if (_photoCD == null)
+                {
+                    Debug.LogError("PhotoCD is not initialized in Photograph.");
+                }
+            }
+        }
+
+        if (triggerNumber == null)
+        {
+            triggerNumber = GameObject.Find("AllAnomalys").GetComponent<SetTriggerNumber>();
+            if (triggerNumber == null)
+            {
+                Debug.LogError("SetTriggerNumber component not found.");
+            }
+        }
+
+        if (ch == null)
+        {
+            ch = GetComponent<Changed>(); // Or assign it manually
+            if (ch == null)
+            {
+                Debug.LogError("Changed component not found.");
+            }
+        }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -31,6 +65,8 @@ public class TurnToNormal : MonoBehaviour
         CameraContact();
 
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "CameraReach")  //if player in zone
@@ -49,26 +85,82 @@ public class TurnToNormal : MonoBehaviour
             txtToDisplay.SetActive(false);
         }
     }
+
     public void CameraContact()
     {
+        if (Camera == null)
+        {
+            Debug.LogError("Camera is not assigned.");
+            return;
+        }
+
+        if (_photoCD == null)
+        {
+            Debug.LogError("_photoCD is not assigned or initialized properly.");
+            return;
+        }
+
         if (Camera.activeSelf)
         {
             ena = true;
 
-            if (inCameraReach == true && Input.GetKeyDown(KeyCode.F) && !_photoCD.IsOutOfUseTime)           //if in zone and press F key
+            if (inCameraReach && Input.GetKeyDown(KeyCode.F) && !_photoCD.IsOutOfUseTime)
             {
+                if (ch == null || anomaly == null)
+                {
+                    Debug.LogError("Either 'ch' or 'anomaly' is null.");
+                    return;
+                }
+
                 ch.enabled = false;
                 anomaly.SetActive(false);
-                ch.normal.SetActive(true);
-                test.PlayOneShot(sound);
-                inCameraReach = false;
-                txtToDisplay.SetActive(false);
-                triggerNumber.Decrease();
-                gameObject.GetComponent<AnomalyCount>().enabled = true;
-            }
 
+                if (ch.normal != null)
+                {
+                    ch.normal.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogError("'ch.normal' is null.");
+                }
+
+                if (test != null && sound != null)
+                {
+                    test.PlayOneShot(sound);
+                }
+                else
+                {
+                    Debug.LogError("'test' or 'sound' is not assigned.");
+                }
+
+                inCameraReach = false;
+                if (txtToDisplay != null)
+                {
+                    txtToDisplay.SetActive(false);
+                }
+
+                if (triggerNumber != null)
+                {
+                    triggerNumber.Decrease();
+                }
+                else
+                {
+                    Debug.LogError("'triggerNumber' is null.");
+                }
+
+                AnomalyCount anomalyCount = gameObject.GetComponent<AnomalyCount>();
+                if (anomalyCount == null)
+                {
+                    anomalyCount = gameObject.AddComponent<AnomalyCount>();
+                }
+                anomalyCount.enabled = true;
+            }
         }
-        else ena = false;
+        else
+        {
+            ena = false;
+        }
     }
 
 }
+

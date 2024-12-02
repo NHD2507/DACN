@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5266373790837294884}
   - component: {fileID: 3569098761670718013}
   - component: {fileID: 7766536259728414394}
-  - component: {fileID: 4634150045256031871}
   m_Layer: 17
   m_Name: TrigSwitch
   m_TagString: Untagged
@@ -77,27 +76,6 @@ MonoBehaviour:
   sound1: {fileID: 8300000, guid: 3b0004cddb5e81b48801cfe3a048df70, type: 3}
   IsPower: 0
   IsBreaker: 0
---- !u!114 &4634150045256031871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781738330416768000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4030134803
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &3040496009323734512
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +153,7 @@ GameObject:
   - component: {fileID: 5000591112071598659}
   - component: {fileID: 180459154771555206}
   - component: {fileID: 4680745098230040649}
-  - component: {fileID: 2141021827392662427}
+  - component: {fileID: 2664552826785598457}
   m_Layer: 17
   m_Name: LightSwitch
   m_TagString: Untagged
@@ -366,7 +344,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2141021827392662427
+--- !u!114 &2664552826785598457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -375,18 +353,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5544183298866591062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3594680320
-  InScenePlacedSourceGlobalObjectIdHash: 3594680320
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5669596063230343446
 GameObject:
   m_ObjectHideFlags: 0

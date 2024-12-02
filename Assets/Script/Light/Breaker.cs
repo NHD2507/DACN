@@ -38,8 +38,7 @@ public class Breaker : MonoBehaviour
         }
     }
 
-
-    private void OnTriggerExit(Collider other)     //if player exit zone
+    private void OnTriggerExit(Collider other) //if player exit zone
     {
         if (other.gameObject.tag == "Reach")
         {
