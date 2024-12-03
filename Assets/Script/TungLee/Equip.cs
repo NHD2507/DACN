@@ -1,47 +1,80 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun; // Sử dụng Photon
 
-public class Equip : MonoBehaviour
+public class Equip : MonoBehaviourPunCallbacks
 {
-    public EquipSlot Slots;
-    public GameObject CurrentObj;
-    public void Start()
+    public EquipSlot Slots;         // Các slot trang bị
+    public GameObject CurrentObj;   // Đối tượng hiện tại được kích hoạt
+
+    void Start()
     {
-        Slots = GameObject.FindGameObjectWithTag("RightHand").GetComponent<EquipSlot>();
-        CurrentObj = new GameObject();
+        if (!photonView.IsMine) return; // Chỉ thực hiện trên player của chính mình
+
+        Transform rightHand = transform.FindRecursive("RightHand"); // Tìm "RightHand" trong chính GameObject của player
+
+        if (rightHand == null)
+        {
+            Debug.LogError("RightHand không tìm thấy!");
+            return;
+        }
+
+        Slots = rightHand.GetComponent<EquipSlot>();
+        if (Slots == null)
+        {
+            Debug.LogError("EquipSlot component không tìm thấy trong RightHand!");
+            return;
+        }
+
+        CurrentObj = null; // Đặt null vì ban đầu chưa có vật phẩm nào được trang bị
     }
-    public void Update()
+
+    void Update()
     {
+        if (!photonView.IsMine) return; // Chỉ thực hiện cho player của chính mình
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (CurrentObj != null)
-                CurrentObj.SetActive(false);
-            if(Slots.ItemInSlot[0] != null)
-            {
-                CurrentObj = Slots.ItemInSlot[0];
-                CurrentObj.SetActive(true);
-            }        
+            EquipItem(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (CurrentObj != null)
-                CurrentObj.SetActive(false);
-            if (Slots.ItemInSlot[1] != null)
-            {
-                CurrentObj = Slots.ItemInSlot[1];
-                CurrentObj.SetActive(true);
-            }
+            EquipItem(1);
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            EquipItem(2);
+        }
+    }
+
+    void EquipItem(int slotIndex)
+    {
+        if (CurrentObj != null)
+        {
+            CurrentObj.SetActive(false); // Tắt đối tượng hiện tại
+        }
+
+        if (Slots.ItemInSlot[slotIndex] != null)
+        {
+            CurrentObj = Slots.ItemInSlot[slotIndex];
+            photonView.RPC("RPC_SetActiveItem", RpcTarget.AllBuffered, slotIndex); // Gọi RPC để đồng bộ
+        }
+    }
+
+    [PunRPC]
+    void RPC_SetActiveItem(int slotIndex)
+    {
+        // Đồng bộ thay đổi cho tất cả client
+        if (Slots.ItemInSlot[slotIndex] != null)
         {
             if (CurrentObj != null)
-                CurrentObj.SetActive(false);
-            if (Slots.ItemInSlot[2] != null)
             {
-                CurrentObj = Slots.ItemInSlot[2];
-                CurrentObj.SetActive(true);
+                CurrentObj.SetActive(false); // Tắt đối tượng hiện tại
             }
+
+            CurrentObj = Slots.ItemInSlot[slotIndex];
+            CurrentObj.SetActive(true); // Kích hoạt đối tượng mới
         }
     }
 }

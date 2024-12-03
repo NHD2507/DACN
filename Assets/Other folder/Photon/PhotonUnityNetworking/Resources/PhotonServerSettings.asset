@@ -44,6 +44,11 @@ MonoBehaviour:
   - RequestTogglePower
   - ToggleDoor
   - TogglePower
+  - PickUpItem
+  - SetItemActive
+  - RPC_SetActiveItem
+  - SyncSlot
+  - RPC_ToggleFlashlight
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

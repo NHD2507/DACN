@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using Cinemachine;
 using Photon.Pun;
-
-
+using System.Threading;
+using Unity.VisualScripting;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.SocialPlatforms;
@@ -11,14 +10,11 @@ using System.Threading.Tasks;
 
 namespace StarterAssets
 {
-
-    
-
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class Player : MonoBehaviourPun
+    public class Player : MonoBehaviourPunCallbacks
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -92,14 +88,12 @@ namespace StarterAssets
         private float _fallTimeoutDelta;
 
 
-
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
-        private CinemachineVirtualCamera _cinemachineVirtualCamera;
 
         private const float _threshold = 0.01f;
 
@@ -108,61 +102,62 @@ namespace StarterAssets
             get
             {
 #if ENABLE_INPUT_SYSTEM
-                return _playerInput != null && _playerInput.currentControlScheme == "KeyboardMouse";
+                return _playerInput.currentControlScheme == "KeyboardMouse";
 #else
-                return false;
+				return false;
 #endif
             }
         }
 
         private void Awake()
         {
-            //// get a reference to our main camera
-            //if (_mainCamera == null)
-            //{
-            //    _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            //}
-
-            //if (_cinemachineVirtualCamera == null)
-            //{
-            //    _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-            //}
-
-            // Chỉ khởi tạo camera và controller cho player local
-            if (photonView.IsMine)
+            if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-                _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+                if (_mainCamera == null)
+                {
+                    Debug.LogError("MainCamera is not found!");
+                }
             }
+
+#if ENABLE_INPUT_SYSTEM
+            _playerInput = GetComponent<PlayerInput>();
+            if (_playerInput == null)
+            {
+                Debug.LogError("PlayerInput is not attached to the player!");
+            }
+#endif
         }
 
         private void Start()
         {
-            // Chỉ áp dụng logic cho player local
-            if (photonView.IsMine)
+            if (!photonView.IsMine)
             {
-                _playerInput = GetComponent<PlayerInput>();
-                if (_playerInput != null)
+                // Nếu không phải player này, tắt các thành phần không cần thiết
+                GetComponent<CharacterController>().enabled = false;
+                GetComponent<StarterAssetsInputs>().enabled = false;
+                if (CinemachineCameraTarget != null)
+                    CinemachineCameraTarget.SetActive(false);
+            }
+            else
+            {
+                // Chỉ kích hoạt camera cho player này
+                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                if (_mainCamera != null)
                 {
-                    _playerInput.enabled = true;
-                }
-
-                if (_cinemachineVirtualCamera != null && CinemachineCameraTarget != null)
-                {
-                    _cinemachineVirtualCamera.Follow = CinemachineCameraTarget.transform;
+                    Camera.main.transform.SetParent(CinemachineCameraTarget.transform);
+                    Camera.main.transform.localPosition = Vector3.zero;
+                    Camera.main.transform.localRotation = Quaternion.identity;
                 }
             }
 
+            // Các thiết lập khác
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
-
-            //
             StartScale = transform.localScale.y;
             currnetCD = SprintCD;
             ResetTime = StamimaResetTime;
             Stamina = SprintStamina;
-             
-            // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }
@@ -178,35 +173,68 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            if (!photonView.IsMine || _cinemachineVirtualCamera == null) return;
+            if (!photonView.IsMine) return;
 
             CameraRotation();
         }
 
+        // Đồng bộ hóa qua mạng
+        private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                // Gửi dữ liệu của player đến các client khác
+                stream.SendNext(transform.position);
+                stream.SendNext(transform.rotation);
+                stream.SendNext(Stamina);
+                stream.SendNext(OutStamaina);
+            }
+            else
+            {
+                // Nhận dữ liệu từ các client khác
+                transform.position = (Vector3)stream.ReceiveNext();
+                transform.rotation = (Quaternion)stream.ReceiveNext();
+                Stamina = (float)stream.ReceiveNext();
+                OutStamaina = (bool)stream.ReceiveNext();
+            }
+        }
+
         private void GroundedCheck()
         {
+            // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+            if (!Grounded)
+                Debug.Log("Player is not grounded!");
         }
 
         private void CameraRotation()
         {
+            if (CinemachineCameraTarget == null)
+            {
+                Debug.LogError("CinemachineCameraTarget is not assigned!");
+                return;
+            }
+            // if there is an input
             if (_input.look.sqrMagnitude >= _threshold)
             {
+                //Don't multiply mouse input by Time.deltaTime
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
                 _cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
                 _rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
 
+                // clamp our pitch rotation
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
+                // Update Cinemachine camera target pitch
                 CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
+                // rotate the player left and right
                 transform.Rotate(Vector3.up * _rotationVelocity);
             }
         }
-        
-
+        //
         private float GetTargetSpeed()
         {
             //control stamina when player use sprint
@@ -381,11 +409,11 @@ namespace StarterAssets
             }
         }
 
-        private float ClampAngle(float angle, float min, float max)
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
-            if (angle < -360f) angle += 360f;
-            if (angle > 360f) angle -= 360f;
-            return Mathf.Clamp(angle, min, max);
+            if (lfAngle < -360f) lfAngle += 360f;
+            if (lfAngle > 360f) lfAngle -= 360f;
+            return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
         private void OnDrawGizmosSelected()

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class EquipSlot : MonoBehaviour
@@ -11,3 +11,4 @@ public class EquipSlot : MonoBehaviour
         IsFull = new bool[3];
     }
 }
+

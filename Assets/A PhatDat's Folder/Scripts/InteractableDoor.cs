@@ -1,172 +1,107 @@
-﻿//using Unity.Netcode;
-//using UnityEngine;
-
-//public class InteractableDoor : NetworkBehaviour, IInteractable
-//{
-//    [SerializeField] private Animator door;
-//    [SerializeField] private AudioSource audioSource;
-//    [SerializeField] private AudioClip openSound;
-//    [SerializeField] private AudioClip closeSound;
-
-//    private NetworkVariable<bool> isOpen = new NetworkVariable<bool>(false); // Đồng bộ trạng thái cửa
-
-//    public InteractionType GetInteractionType()
-//    {
-//        return InteractionType.OpenDoor;
-//    }
-
-//    public void Interact()
-//    {
-//        // Chỉ client chủ sở hữu mới có thể tương tác và gửi tín hiệu tới server
-//        if (IsOwner)
-//        {
-//            ToggleDoorServerRpc(!isOpen.Value);
-//        }
-//    }
-
-//    [ServerRpc(RequireOwnership = false)]
-//    private void ToggleDoorServerRpc(bool open)
-//    {
-//        isOpen.Value = open; // Cập nhật trạng thái trên server
-//        HandleDoorStateClientRpc(open); // Đồng bộ trạng thái trên tất cả các client
-//    }
-
-//    [ClientRpc]
-//    private void HandleDoorStateClientRpc(bool open)
-//    {
-//        if (open)
-//        {
-//            OpenDoor();
-//        }
-//        else
-//        {
-//            CloseDoor();
-//        }
-//    }
-
-//    private void OpenDoor()
-//    {
-//        // Kích hoạt trigger "opened"
-//        door.ResetTrigger("closed");
-//        door.SetTrigger("opened");
-
-//        // Phát âm thanh mở cửa
-//        if (audioSource != null && openSound != null)
-//        {
-//            audioSource.PlayOneShot(openSound);
-//        }
-
-//        Debug.Log("Door opened");
-//    }
-
-//    private void CloseDoor()
-//    {
-//        // Kích hoạt trigger "closed"
-//        door.ResetTrigger("opened");
-//        door.SetTrigger("closed");
-
-//        // Phát âm thanh đóng cửa
-//        if (audioSource != null && closeSound != null)
-//        {
-//            audioSource.PlayOneShot(closeSound);
-//        }
-
-//        Debug.Log("Door closed");
-//    }
-
-//    private void Start()
-//    {
-//        // Lắng nghe sự thay đổi của `isOpen` để đồng bộ trạng thái cửa
-//        isOpen.OnValueChanged += (oldValue, newValue) =>
-//        {
-//            if (newValue)
-//            {
-//                OpenDoor();
-//            }
-//            else
-//            {
-//                CloseDoor();
-//            }
-//        };
-//    }
-//}
-
-using Photon.Pun; // Import thư viện Photon
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class InteractableDoor : MonoBehaviour, IInteractable
+public class InteractableDoor : MonoBehaviourPun, IPunObservable
 {
-    [SerializeField] private Animator door;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip openSound;
-    [SerializeField] private AudioClip closeSound;
+    public GameObject txtDoor;             // Hiển thị UI text
+    public AudioSource audioSource;        // Nguồn âm thanh
+    public AudioClip openSound;            // Âm thanh mở cửa
+    public AudioClip closeSound;           // Âm thanh đóng cửa
+    public Animator door;                  // Animator của cửa
 
-    private bool isOpen = false; // Trạng thái cửa
-    private PhotonView photonView;
+    private bool inReach;                  // Kiểm tra người chơi có trong vùng kích hoạt không
+    [SerializeField] private bool isOpen;  // Trạng thái cửa (đóng/mở)
 
-    private void Start()
+    void Start()
     {
-        // Gắn PhotonView từ đối tượng hiện tại
-        photonView = GetComponent<PhotonView>();
+        inReach = false;
+        txtDoor.SetActive(false);
     }
 
-    public InteractionType GetInteractionType()
+    private void OnTriggerStay(Collider other)
     {
-        return InteractionType.OpenDoor;
-    }
-
-    public void Interact()
-    {
-        // Chỉ client chủ sở hữu mới có thể gửi tín hiệu mở/đóng cửa
-        if (photonView.IsMine)
+        if (other.CompareTag("Reach"))
         {
-            photonView.RPC(nameof(ToggleDoor), RpcTarget.All, !isOpen);
+            inReach = true;
+            txtDoor.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Reach"))
+        {
+            inReach = false;
+            txtDoor.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if (inReach && Input.GetKeyDown(KeyCode.E)) // Người chơi trong vùng và nhấn phím E
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("ToggleDoor", RpcTarget.AllBuffered);
+            }
+            else
+            {
+                ToggleDoor();
+            }
         }
     }
 
     [PunRPC]
-    private void ToggleDoor(bool open)
+    public void ToggleDoor()
     {
-        isOpen = open; // Cập nhật trạng thái cục bộ
-
         if (isOpen)
         {
-            OpenDoor();
+            DoorCloseed();
         }
         else
         {
-            CloseDoor();
+            DoorOpened();
         }
     }
 
-    private void OpenDoor()
+    public void DoorOpened()
     {
-        // Kích hoạt trigger "opened"
         door.ResetTrigger("closed");
         door.SetTrigger("opened");
-
-        // Phát âm thanh mở cửa
-        if (audioSource != null && openSound != null)
-        {
-            audioSource.PlayOneShot(openSound);
-        }
-
-        Debug.Log("Door opened");
+        audioSource.PlayOneShot(openSound);
+        isOpen = true;
+        txtDoor.SetActive(false);
     }
 
-    private void CloseDoor()
+    public void DoorCloseed()
     {
-        // Kích hoạt trigger "closed"
         door.ResetTrigger("opened");
         door.SetTrigger("closed");
+        audioSource.PlayOneShot(closeSound);
+        isOpen = false;
+        txtDoor.SetActive(false);
+    }
 
-        // Phát âm thanh đóng cửa
-        if (audioSource != null && closeSound != null)
+    // Đồng bộ hóa trạng thái cửa qua mạng
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
         {
-            audioSource.PlayOneShot(closeSound);
+            stream.SendNext(isOpen);
         }
-
-        Debug.Log("Door closed");
+        else if (stream.IsReading)
+        {
+            isOpen = (bool)stream.ReceiveNext();
+            if (isOpen)
+            {
+                DoorOpened();
+            }
+            else
+            {
+                DoorCloseed();
+            }
+        }
     }
 }
-
