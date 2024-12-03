@@ -154,7 +154,14 @@ public class InteractableItem : MonoBehaviourPunCallbacks
 
     void PlayPickUpSound()
     {
-        pickup.PlayOneShot(pickupSound);
+        if (pickup != null && pickupSound != null)
+        {
+            pickup.PlayOneShot(pickupSound);
+        }
+        else
+        {
+            Debug.LogWarning("Pickup sound or AudioSource is missing.");
+        }
     }
 
     // RPC để nhặt item
@@ -166,7 +173,7 @@ public class InteractableItem : MonoBehaviourPunCallbacks
         PlayPickUpSound();
         Item.transform.localPosition = pos;
         followhand = true;
-        OnHand temp = CurrentItem.CurrentItem.GetComponent<OnHand>();
+        OnHand temp = CurrentItem?.CurrentItem.GetComponent<OnHand>(); // Check null for CurrentItem
         if (temp != null)
         {
             temp.onHand = followhand;

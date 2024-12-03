@@ -426,8 +426,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1468695240690415634}
   - component: {fileID: 5394923625892086986}
-  - component: {fileID: 6703101441601665189}
   - component: {fileID: 776916370789439881}
+  - component: {fileID: 8098095647230210202}
   m_Layer: 9
   m_Name: RightHand
   m_TagString: Player
@@ -466,20 +466,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemInSlot: []
   IsFull: 
---- !u!114 &6703101441601665189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2461804156138461596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9867c26e69be0845ae6f852a13f81e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Slots: {fileID: 0}
-  CurrentObj: {fileID: 0}
 --- !u!114 &776916370789439881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,6 +488,20 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8098095647230210202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461804156138461596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e17ed5f634741349b487f2c56973102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Slots: {fileID: 0}
+  CurrentObj: {fileID: 0}
 --- !u!1 &2703166909926976053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,7 +1792,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2918
+  m_VersionIndex: 2927
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
