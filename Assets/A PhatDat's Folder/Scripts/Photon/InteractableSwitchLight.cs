@@ -16,7 +16,7 @@ public class InteractableSwitchLight : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        breaker = GameObject.FindGameObjectWithTag("Breaker");
+        breaker = GameObject.FindGameObjectWithTag("Breaker"); // Find Breaker with tag "Breaker"
         IsPower = true;
         PlayerInZone = false; // Player not in zone       
         txtToDisplay.SetActive(false);
@@ -52,7 +52,28 @@ public class InteractableSwitchLight : MonoBehaviourPunCallbacks
 
     public void LightOnOff(bool powersource)
     {
-        IsBreaker = breaker.GetComponent<Breaker>().powerSource;
+        // Check if breaker is assigned before using it
+        if (breaker == null)
+        {
+            breaker = GameObject.FindGameObjectWithTag("Breaker");
+            if (breaker == null)
+            {
+                Debug.LogError("Breaker không được tìm thấy! Kiểm tra tag hoặc sự tồn tại của GameObject.");
+                return;
+            }
+        }
+
+        // Check if Breaker component exists
+        InteractableBreaker breakerComponent = breaker.GetComponent<InteractableBreaker>();
+        if (breakerComponent == null)
+        {
+            Debug.LogError("Component Interactable Breaker không tồn tại trên đối tượng Breaker.");
+            return;
+        }
+
+        IsBreaker = breakerComponent.powerSource;
+
+        // Turn on or off the light based on power source state
         if (IsBreaker)
         {
             lightorobj.SetActive(powersource);

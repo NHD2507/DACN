@@ -13,7 +13,7 @@ public static class Loader
         MultilayerScene,
         LoadingScene,
         Lobby,
-        ConnectedToServer
+        ConnectToServer
     }
 
     private static Scene targetScene;

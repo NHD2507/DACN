@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Photograph : MonoBehaviour
 {
-    public GameObject photograph; 
+    public GameObject photograph;
     public GameObject Plight;
     public AudioSource audioSource; // Add this
     public AudioClip sound1; // Add this

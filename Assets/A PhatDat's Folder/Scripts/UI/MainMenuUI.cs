@@ -11,7 +11,7 @@ public class MainMenuUI : MonoBehaviour
     private void Awake()
     {
         MultiplayerBtn.onClick.AddListener(() => {
-            Loader.Load(Loader.Scene.ConnectedToServer);
+            Loader.Load(Loader.Scene.ConnectToServer);
         });
         SingleplayerBtn.onClick.AddListener(() => {
             Loader.Load(Loader.Scene.SingleplayerScene);
