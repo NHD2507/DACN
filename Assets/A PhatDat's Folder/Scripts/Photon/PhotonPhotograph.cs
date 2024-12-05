@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 
@@ -21,9 +21,38 @@ public class PhotonPhotograph : MonoBehaviourPunCallbacks
         Plight.SetActive(false);
         PlayerInZone = false;
         onhand = false;
-        photoReach.SetActive(false);
-        Hand = GameObject.FindGameObjectWithTag("RightHand");
+
+        // Tìm kiếm cameraReach và gán vào photoReach
+        GameObject player = PhotonNetwork.LocalPlayer.TagObject as GameObject;
+        if (player != null)
+        {
+            Transform cameraReach = player.transform.FindRecursive("CameraReach");
+            if (cameraReach != null)
+            {
+                photoReach = cameraReach.gameObject;
+                Debug.Log("CameraReach được gán thành công.");
+            }
+            else
+            {
+                Debug.LogWarning("cameraReach không được tìm thấy trong Player.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Không thể tìm thấy Player trong PhotonNetwork.LocalPlayer.");
+        }
+
+        // Chỉ gọi SetActive nếu photoReach đã được tìm thấy
+        if (photoReach != null)
+        {
+            photoReach.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("photoReach vẫn chưa được gán, hãy kiểm tra logic tìm kiếm.");
+        }
     }
+
 
     void Update()
     {

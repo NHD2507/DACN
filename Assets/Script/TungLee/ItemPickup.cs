@@ -14,7 +14,6 @@ public class ItemPickup : MonoBehaviour
     public bool followhand;
     public EquipSlot Slots;
     public ReachItem CurrentItem;
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Reach")
@@ -34,37 +33,15 @@ public class ItemPickup : MonoBehaviour
 
     private void Start()
     {
-        // Ensure the AudioSource component is attached to the same GameObject
-        pickup = GetComponent<AudioSource>();
-        if (pickup == null)
-        {
-            Debug.LogError("AudioSource component is missing from the GameObject.");
-        }
-
-        // Initialize the position and flags
         pos = hand.transform.position;
         followhand = false;
-
-        // Ensure EquipSlot is found on RightHand GameObject
         Slots = GameObject.FindGameObjectWithTag("RightHand").GetComponent<EquipSlot>();
-        if (Slots == null)
-        {
-            Debug.LogError("EquipSlot component is missing from the RightHand GameObject.");
-        }
-
-        // Ensure ReachItem is found on Reach GameObject
         CurrentItem = GameObject.FindGameObjectWithTag("Reach").GetComponent<ReachItem>();
-        if (CurrentItem == null)
-        {
-            Debug.LogError("ReachItem component is missing from the Reach GameObject.");
-        }
     }
-
-
     void Update()
     {
         if (inReach == true && !followhand)
-        {           
+        {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (GetItemIntoSlot())
@@ -80,23 +57,22 @@ public class ItemPickup : MonoBehaviour
                         temp.onHand = followhand;
                     }
                     Item.SetActive(false);
-                }               
+                }
             }
         }
-        else if(followhand)
+        else if (followhand)
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1)) { Item.SetActive(true);}
+            if (Input.GetKeyDown(KeyCode.Alpha1)) { Item.SetActive(true); }
             transform.position = hand.position;
             transform.rotation = hand.rotation;
         }
     }
-
     private bool GetItemIntoSlot()
     {
         for (int i = 0; i < Slots.ItemInSlot.Length; i++)
         {
             if (!Slots.IsFull[i])
-            {                
+            {
                 Slots.ItemInSlot[i] = Item;
                 Slots.IsFull[i] = true;
                 return true;
@@ -104,7 +80,6 @@ public class ItemPickup : MonoBehaviour
         }
         return false;
     }
-
     void PlayPickUpSound()
     {
         pickup.PlayOneShot(pickupSound);

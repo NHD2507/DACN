@@ -57,12 +57,12 @@ public class InteractableItem : MonoBehaviourPunCallbacks
             Debug.LogError("EquipSlot component is missing from the RightHand GameObject.");
         }
 
-        // Đảm bảo ReachItem được tìm thấy
-        CurrentItem = GameObject.FindGameObjectWithTag("Reach")?.GetComponent<ReachItem>();
-        if (CurrentItem == null)
-        {
-            Debug.LogError("ReachItem component is missing from the Reach GameObject.");
-        }
+        //// Đảm bảo ReachItem được tìm thấy
+        //CurrentItem = GameObject.FindGameObjectWithTag("Reach")?.GetComponent<ReachItem>();
+        //if (CurrentItem == null)
+        //{
+        //    Debug.LogError("ReachItem component is missing from the Reach GameObject.");
+        //}
 
         // Đảm bảo AudioSource tồn tại
         pickup = GetComponent<AudioSource>();
