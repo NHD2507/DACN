@@ -1,10 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LightOnOffNew : MonoBehaviour
 {
-    public GameObject txtToDisplay;             //display the UI text
 
     private bool PlayerInZone;                  //check if the player is in trigger
     public AudioSource audioSource; // Add this
@@ -22,7 +21,16 @@ public class LightOnOffNew : MonoBehaviour
         breaker = GameObject.FindGameObjectWithTag("Breaker");
         IsPower = true;
         PlayerInZone = false;                   //player not in zone       
-        txtToDisplay.SetActive(false);
+                                                // Kiểm tra nếu UIManager đã tồn tại 
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.hideToggleUI();
+        }
+        else
+        {
+            Debug.LogWarning("UIManager không có trong ứng dụng");
+        }
+
         switchON.SetActive(true);
         switchOFF.SetActive(false);
     }
@@ -45,7 +53,7 @@ public class LightOnOffNew : MonoBehaviour
     {
         if (other.gameObject.tag == "Reach")  //if player in zone
         {
-            txtToDisplay.SetActive(true);
+            UIManager.Instance.showToggleUI();
             PlayerInZone = true;
         }
     }
@@ -56,7 +64,7 @@ public class LightOnOffNew : MonoBehaviour
         if (other.gameObject.tag == "Reach")
         {
             PlayerInZone = false;
-            txtToDisplay.SetActive(false);
+            UIManager.Instance.hideToggleUI();
         }
     }
     public void LightOnOff(bool powersource)

@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
-    public GameObject inttext, Item;
+    public GameObject Item;
     public AudioSource pickup;
     public AudioClip pickupSound;
     public Transform hand;
@@ -18,7 +18,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.gameObject.tag == "Reach")
         {
-            inttext.SetActive(true);
+            UIManager.Instance.showToggleUI();
             inReach = true;
         }
     }
@@ -26,13 +26,23 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.gameObject.tag == "Reach")
         {
-            inttext.SetActive(false);
+            UIManager.Instance.hideToggleUI();
             inReach = false;
         }
     }
 
     private void Start()
     {
+
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.hideToggleUI();
+        }
+        else
+        {
+            Debug.LogWarning("UIManager không có trong ứng dụng");
+        }
+
         pos = hand.transform.position;
         followhand = false;
         Slots = GameObject.FindGameObjectWithTag("RightHand").GetComponent<EquipSlot>();
@@ -46,7 +56,7 @@ public class ItemPickup : MonoBehaviour
             {
                 if (GetItemIntoSlot())
                 {
-                    inttext.SetActive(false);
+                    UIManager.Instance.hideToggleUI();
                     inReach = false;
                     PlayPickUpSound();
                     Item.transform.localPosition = pos;

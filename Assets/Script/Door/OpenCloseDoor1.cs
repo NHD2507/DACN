@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OpenCloseDoor1 : MonoBehaviour
 {
-    public GameObject txtDoor;             //display the UI text
+    [Header("Door Setting")]
     public AudioSource audioSource;        //audio source
     public AudioClip openSound;            //sound 1
     public AudioClip closeSound;           //sound 2
@@ -12,12 +12,22 @@ public class OpenCloseDoor1 : MonoBehaviour
     //check if the player is in trigger
 
     public Animator door;
-    // Start is called before the first frame update
+
     void Start()
     {
+
+        // Kiểm tra nếu UIManager đã tồn tại 
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.hideToggleUI();
+        }
+        else
+        {
+            Debug.LogWarning("UIManager không có trong ứng dụng");
+        }
+
         inReach = false;                   //player not in zone       
         toggle = true;
-        txtDoor.SetActive(false);
     }
 
     public void OnTriggerStay(Collider other)
@@ -25,7 +35,7 @@ public class OpenCloseDoor1 : MonoBehaviour
         if (other.gameObject.tag == "Reach")     //if player in zone
         {
             inReach = true;
-            txtDoor.SetActive(true);
+            UIManager.Instance.showToggleUI();
         }
     }
 
@@ -34,7 +44,7 @@ public class OpenCloseDoor1 : MonoBehaviour
         if (other.gameObject.tag == "Reach")     //if player in zone
         {
             inReach = false;
-            txtDoor.SetActive(false);
+            UIManager.Instance.hideToggleUI();
         }
     }
     // Update is called once per frame
@@ -42,13 +52,14 @@ public class OpenCloseDoor1 : MonoBehaviour
     {
         openclosedoor();
     }
+
     void openclosedoor()
     {
         if (inReach && Input.GetKeyDown(KeyCode.E))           //if in zone and press E key
         {
             if (toggle) DoorOpened();
             else DoorCloseed();
-            txtDoor.SetActive(false);
+            UIManager.Instance.hideToggleUI();
             inReach = false;
         }
     }
