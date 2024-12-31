@@ -7564,8 +7564,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345383135}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02297066, y: 0.011379102, z: -0.0002614714, w: 0.99967134}
-  m_LocalPosition: {x: 2.8650866, y: 2.0803046, z: 0.3758831}
+  m_LocalRotation: {x: -0.0076968404, y: -0.7248871, z: -0.008100356, w: 0.68877715}
+  m_LocalPosition: {x: 2.25, y: 1.9999995, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8257,7 +8257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 354004851}
         m_TargetAssemblyTypeName: TransitionManagerUI, Assembly-CSharp
-        m_MethodName: Singleplayer
+        m_MethodName: Game
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

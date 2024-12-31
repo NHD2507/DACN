@@ -463,7 +463,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 8173010139485521983}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 8173010139485521982}
   Camera: {fileID: 751398718}
@@ -800,7 +799,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 2061541364}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 2061541363}
   Camera: {fileID: 751398718}
@@ -1154,7 +1152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 462115960}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 462115959}
   Camera: {fileID: 751398718}
@@ -1547,7 +1544,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 487989418}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 487989417}
   Camera: {fileID: 751398718}
@@ -1622,7 +1618,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 8202784104878682619}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 8202784104878682618}
   Camera: {fileID: 751398718}
@@ -16372,7 +16367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 602615952}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 602615951}
   Camera: {fileID: 751398718}
@@ -26084,7 +26078,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 2121604068}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 2121604064}
   Camera: {fileID: 751398718}
@@ -33796,7 +33789,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 386346111}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 386346107}
   Camera: {fileID: 751398718}
@@ -39038,7 +39030,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 1091361774}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 1091361773}
   Camera: {fileID: 751398718}
@@ -44131,7 +44122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 372545295}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 372545294}
   Camera: {fileID: 751398718}
@@ -45566,7 +45556,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 8381129865007388930}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 8381129865007388929}
   Camera: {fileID: 751398718}
@@ -49583,7 +49572,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 1240658497}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 1240658496}
   Camera: {fileID: 751398718}
@@ -50134,7 +50122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 53812832}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 53812831}
   Camera: {fileID: 751398718}
@@ -50729,7 +50716,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 0}
   sound: {fileID: 0}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 53812831}
   Camera: {fileID: 0}
@@ -57776,7 +57762,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 270182165}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 270182164}
   Camera: {fileID: 751398718}
@@ -58380,7 +58365,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 803336582}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 803336583}
   Camera: {fileID: 751398718}
@@ -66766,7 +66750,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 1608293667}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 1608293664}
   Camera: {fileID: 751398718}
@@ -68888,7 +68871,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 1336231235}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 1336231234}
   Camera: {fileID: 751398718}
@@ -69883,7 +69865,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 674512048}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 674512047}
   Camera: {fileID: 751398718}
@@ -72965,7 +72946,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 1923004392}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 1923004391}
   Camera: {fileID: 751398718}
@@ -73644,7 +73624,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 1013736489}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 1013736488}
   Camera: {fileID: 751398718}
@@ -84757,7 +84736,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 2097126286}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 2097126283}
   Camera: {fileID: 751398718}
@@ -93112,7 +93090,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 297701861}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 297701860}
   Camera: {fileID: 751398718}
@@ -94537,7 +94514,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 149881438}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 149881437}
   Camera: {fileID: 751398718}
@@ -96890,7 +96866,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 286112857}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 286112856}
   Camera: {fileID: 751398718}
@@ -97130,7 +97105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 250841706}
   sound: {fileID: 8300000, guid: 5c887ac2376f73e4796b8fc2d7673ca9, type: 3}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 250841705}
   Camera: {fileID: 751398718}
@@ -107350,7 +107324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test: {fileID: 0}
   sound: {fileID: 0}
-  txtToDisplay: {fileID: 0}
   inCameraReach: 0
   ch: {fileID: 0}
   Camera: {fileID: 0}
@@ -117867,6 +117840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuPanelUI: {fileID: 1550731280}
   settingPanelUI: {fileID: 827252565}
+  StaminaBar: {fileID: 1196992217}
 --- !u!4 &5442203581760127178
 Transform:
   m_ObjectHideFlags: 0
