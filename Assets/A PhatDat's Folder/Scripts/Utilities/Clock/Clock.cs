@@ -14,7 +14,7 @@ public class Clock : MonoBehaviour
     public float endTime = 6f; // 6h tối
 
     public float elapsedTime = 0f;
-    public float duration = 60f; // Thời gian chạy từ 10h đến 6h là 15 phút
+    public float duration = 900f; // Thời gian chạy từ 10h đến 6h là 15 phút
     private void Start()
     {
         StartCoroutine(RunClock());
@@ -27,7 +27,7 @@ public class Clock : MonoBehaviour
 
         // Tính góc quay của kim giờ và kim phút tại thời điểm bắt đầu
         float startHourRotation = startTime * hoursToDegrees;
-        float startMinuteRotation = 0f; // Bắt đầu từ 12h
+        float startMinuteRotation = 0f; // Bắt đầu từ 6h
 
         // Tính góc quay của kim giờ và kim phút tại thời điểm kết thúc
         float endHourRotation = endTime * hoursToDegrees;

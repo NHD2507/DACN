@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/A PhatDat's Folder/Scene/MainMenuScene.unity
-    guid: 01000e5b44604f1438f6760680bcae73
-  - enabled: 1
+    guid: 42ab47cb0f3bc694ca1b233e17850955
+  - enabled: 0
     path: Assets/A PhatDat's Folder/Scene/LoadingScene.unity
     guid: c5600275c3bedd24897636e465189a1b
   - enabled: 1
