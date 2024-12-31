@@ -24,6 +24,7 @@ public class FlashLight : MonoBehaviour
     void Update()
     {
         if (!onhand)
+        
             onhand = flashlight.GetComponent<OnHand>().onHand;
         if (PlayerInZone && Input.GetKeyDown(KeyCode.F) && onhand)           //if in zone and press E key
         {
