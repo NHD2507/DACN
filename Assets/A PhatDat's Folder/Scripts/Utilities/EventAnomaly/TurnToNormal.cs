@@ -14,6 +14,8 @@ public class TurnToNormal : MonoBehaviour
     public bool ena;
     [SerializeField] private PhotoCD _photoCD;
     public SetTriggerNumber triggerNumber;
+    public FixedButton UseItemButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +73,7 @@ public class TurnToNormal : MonoBehaviour
         {
             ena = true;
 
-            if (inCameraReach == true && !_photoCD.IsOutOfUseTime)  // Kiểm tra zone và thời gian sử dụng
+            if (inCameraReach == true && !_photoCD.IsOutOfUseTime && UseItemButton.Pressed)  // Kiểm tra zone và thời gian sử dụng
             {
                 // Xử lý chuyển anomaly về bình thường
                 ch.enabled = false;
