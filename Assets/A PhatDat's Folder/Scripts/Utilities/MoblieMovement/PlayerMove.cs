@@ -5,26 +5,22 @@ using UnityEngine.UI;
 public class PlayerMove : MonoBehaviour
 {
     [Header("Player Movement")]
-    public FixedJoystick joystick;
-    [Tooltip("Walk speed of the character in m/s")]
-    public float walkSpeed = 5f;
-    [Tooltip("Sprint speed of the character in m/s")]
-    public float sprintSpeed = 10f;
-    [Tooltip("Crouch speed of the character in m/s")]
-    public float crouchSpeed = 2f;
+    public FixedJoystick joystick;           // Joystick di chuyển
+    public float walkSpeed = 5f;             // Tốc độ đi bộ
+    public float sprintSpeed = 10f;          // Tốc độ chạy nhanh
+    public float crouchSpeed = 2f;           // Tốc độ cúi
 
     [Space(10)]
-    [Tooltip("The character's own gravity value. Default is -9.81f")]
-    public float gravity = -9.81f;
-    public float crouchScale = 0.5f;
-    private float originalScaleY;
+    public float gravity = -9.81f;           // Trọng lực
+    public float crouchScale = 0.5f;         // Tỉ lệ khi cúi
+    private float originalScaleY;            // Tỉ lệ ban đầu
 
     [Header("Stamina Settings")]
     [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float staminaDrainRate = 15f;
     [SerializeField] private float staminaRegenRate = 10f;
     [SerializeField] private float staminaRegenDelay = 2f;
-    [SerializeField] private Image staminaBar; // UI bar for stamina
+    [SerializeField] private Image staminaBar; // UI stamina
 
     private float currentStamina;
     private float staminaRegenTimer;
@@ -36,6 +32,7 @@ public class PlayerMove : MonoBehaviour
     public float groundedRadius = 0.5f;
     public LayerMask groundLayers;
 
+    [SerializeField] private Transform PlayerBody;
     private CharacterController controller;
     private Vector3 velocity;
 
@@ -48,7 +45,7 @@ public class PlayerMove : MonoBehaviour
         controller = GetComponent<CharacterController>();
         originalScaleY = transform.localScale.y;
         currentStamina = maxStamina;
-        UpdateStaminaUI(); // Initialize stamina UI
+        UpdateStaminaUI(); // Khởi tạo thanh stamina
     }
 
     private void Update()
@@ -70,42 +67,43 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-private void Move()
-{
-    float targetSpeed = walkSpeed;
+    public void Move()
+    {
+        float targetSpeed = walkSpeed;
 
-    // Xử lý cúi
-    if (pressedCrouch)
-    {
-        targetSpeed = crouchSpeed;
-        transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
-    }
-    else
-    {
-        transform.localScale = new Vector3(transform.localScale.x, originalScaleY, transform.localScale.z);
-    }
-
-    // Xử lý chạy nhanh
-    if (pressedSprint && !pressedCrouch)
-    {
-        if (currentStamina > 0)
+        // Xử lý cúi
+        if (pressedCrouch)
         {
-            targetSpeed = sprintSpeed;
-            currentStamina -= staminaDrainRate * Time.deltaTime;
-            currentStamina = Mathf.Max(currentStamina, 0); // Đảm bảo stamina không âm
+            targetSpeed = crouchSpeed;
+            transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
         }
         else
         {
-            isOutOfStamina = true; // Gắn cờ hết stamina
+            transform.localScale = new Vector3(transform.localScale.x, originalScaleY, transform.localScale.z);
         }
 
-        staminaRegenTimer = 0f; // Reset bộ đếm hồi stamina khi đang chạy
-    }
+        // Xử lý chạy nhanh
+        if (pressedSprint && !pressedCrouch)
+        {
+            if (currentStamina > 0)
+            {
+                targetSpeed = sprintSpeed;
+                currentStamina -= staminaDrainRate * Time.deltaTime;
+                currentStamina = Mathf.Max(currentStamina, 0);
+            }
+            else
+            {
+                isOutOfStamina = true;
+            }
 
-    // Di chuyển nhân vật
-    Vector3 move = transform.right * joystick.Horizontal + transform.forward * joystick.Vertical;
-    controller.Move(move.normalized * (targetSpeed * Time.deltaTime));
-}
+            staminaRegenTimer = 0f;
+        }
+
+        // Di chuyển nhân vật qua joystick
+        Vector3 move = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
+        move = PlayerBody.transform.TransformDirection(move); // Chuyển sang tọa độ nhân vật
+        controller.Move(move.normalized * targetSpeed * Time.deltaTime);
+    }
 
     private void ApplyGravity()
     {
@@ -115,7 +113,6 @@ private void Move()
 
     private void ManageStamina()
     {
-        // Nếu không nhấn nút chạy nhanh và stamina chưa đầy
         if (!pressedSprint && currentStamina < maxStamina)
         {
             staminaRegenTimer += Time.deltaTime;
@@ -123,11 +120,11 @@ private void Move()
             if (staminaRegenTimer >= staminaRegenDelay)
             {
                 currentStamina += staminaRegenRate * Time.deltaTime;
-                currentStamina = Mathf.Min(currentStamina, maxStamina); // Đảm bảo stamina không vượt quá max
+                currentStamina = Mathf.Min(currentStamina, maxStamina);
 
                 if (currentStamina > 0)
                 {
-                    isOutOfStamina = false; // Cho phép chạy lại nếu stamina hồi lại một phần
+                    isOutOfStamina = false; // Cho phép chạy lại
                 }
             }
         }

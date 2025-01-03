@@ -5,7 +5,7 @@ public class EscMenuUI : MonoBehaviour
 {
     public GameObject pauseMenuPanelUI;
     public GameObject settingPanelUI;
-    //public GameObject StaminaBar;
+    public GameObject StaminaBar;
     private bool isPaused = false;
 
     void Start()
@@ -37,7 +37,7 @@ public class EscMenuUI : MonoBehaviour
     {
         pauseMenuPanelUI.SetActive(false);
         settingPanelUI.SetActive(false);
-        //if (StaminaBar != null) StaminaBar.SetActive(true);
+        if (StaminaBar != null) StaminaBar.SetActive(true);
         Time.timeScale = 1f;  // Ensure the game resumes correctly
         LockCursor();
         isPaused = false;
@@ -47,7 +47,7 @@ public class EscMenuUI : MonoBehaviour
     {
         pauseMenuPanelUI.SetActive(true);
         settingPanelUI.SetActive(false);
-        //if (StaminaBar != null) StaminaBar.SetActive(false);
+        if (StaminaBar != null) StaminaBar.SetActive(false);
         Time.timeScale = 0f;  // Pause the game when the menu is active
         UnlockCursor();
         isPaused = true;

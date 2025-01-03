@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OpenCloseDoorMobile : MonoBehaviour
 {
-    [Header("Door Setting")]
-    public AudioSource audioSource;        //audio source
-    public AudioClip openSound;            //sound 1
-    public AudioClip closeSound;           //sound 2
+    public AudioSource audioSource;
+    public AudioClip openSound;
+    public AudioClip closeSound;
     public bool inReach, toggle;
 
     public Animator door;
 
+    // Thêm biến để đánh dấu cửa đang được nhắm đến
+    public static OpenCloseDoorMobile currentTarget;
+
     void Start()
     {
-        // Kiểm tra nếu UIManager đã tồn tại 
         if (UIManager.Instance != null)
         {
             UIManager.Instance.hideToggleUI();
@@ -24,32 +23,38 @@ public class OpenCloseDoorMobile : MonoBehaviour
             Debug.LogWarning("UIManager không có trong ứng dụng");
         }
 
-        inReach = false; // Player không ở trong vùng       
+        inReach = false;
         toggle = true;
     }
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Reach") // Nếu player trong vùng
+        if (other.gameObject.tag == "Reach")
         {
             inReach = true;
             UIManager.Instance.showToggleUI();
+            // Đặt cửa này làm cửa hiện tại
+            currentTarget = this;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Reach") // Nếu player ra khỏi vùng
+        if (other.gameObject.tag == "Reach")
         {
             inReach = false;
             UIManager.Instance.hideToggleUI();
+            // Đặt lại target nếu ra khỏi vùng
+            if (currentTarget == this)
+            {
+                currentTarget = null;
+            }
         }
     }
 
-    // Được gọi từ TouchController khi nhấn nút Interact
     public void HandleInteraction()
     {
-        if (inReach) // Chỉ thực hiện nếu player trong vùng
+        if (inReach)
         {
             if (toggle)
                 DoorOpened();
@@ -57,7 +62,6 @@ public class OpenCloseDoorMobile : MonoBehaviour
                 DoorCloseed();
 
             UIManager.Instance.hideToggleUI();
-            inReach = false;
         }
     }
 
@@ -73,7 +77,7 @@ public class OpenCloseDoorMobile : MonoBehaviour
     {
         door.ResetTrigger("opened");
         door.SetTrigger("closed");
-        audioSource.PlayOneShot(closeSound); // Phát âm thanh đóng cửa
+        audioSource.PlayOneShot(closeSound);
         toggle = true;
     }
 }

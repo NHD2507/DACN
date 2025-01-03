@@ -663,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 105256601}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.206, y: 8.382, z: 22.065}
+  m_LocalPosition: {x: 0.09, y: 8.68, z: 22.065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3081,8 +3081,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532316929}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0076968423, y: -0.724887, z: -0.008100356, w: 0.6887772}
-  m_LocalPosition: {x: -0.8710866, y: 8.402695, z: 20.493116}
+  m_LocalRotation: {x: 0.002572124, y: -0.72707844, z: 0.0027239844, w: 0.6865442}
+  m_LocalPosition: {x: -0.51, y: 8.53, z: 20.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6119,8 +6119,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141447378}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02305571, y: 0.0114213, z: -0.00026341333, w: 0.9996689}
-  m_LocalPosition: {x: -0.256, y: 8.483, z: 19.869}
+  m_LocalRotation: {x: -0.029745106, y: 0.044318862, z: 0.001320152, w: 0.9985737}
+  m_LocalPosition: {x: -0.066, y: 8.575, z: 20.311}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7564,8 +7564,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345383135}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02297066, y: 0.011379102, z: -0.0002614714, w: 0.99967134}
-  m_LocalPosition: {x: 2.8650866, y: 2.0803046, z: 0.3758831}
+  m_LocalRotation: {x: 0.0025721237, y: -0.72707844, z: 0.0027239847, w: 0.6865442}
+  m_LocalPosition: {x: 2.6110866, y: 2.1273046, z: 1.0468845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8257,7 +8257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 354004851}
         m_TargetAssemblyTypeName: TransitionManagerUI, Assembly-CSharp
-        m_MethodName: Singleplayer
+        m_MethodName: Game
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

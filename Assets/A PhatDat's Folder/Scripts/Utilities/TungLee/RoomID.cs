@@ -25,7 +25,7 @@ public class RoomID : MonoBehaviour
         if (doorscript != null)
             if (!doorscript.toggle == false)
                 doorscript.DoorCloseed();
-        Switch.GetComponent<LightONOFF>().IsPower = false;       
+        Switch.GetComponent < LightOnOffMobile>().IsPower = false;       
         for (int i = 0; i < NumberOfAnomalyTrigger; i++)
         {
             int random = Random.Range(0, Anomalys.Length);

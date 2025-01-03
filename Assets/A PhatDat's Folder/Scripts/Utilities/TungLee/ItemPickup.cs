@@ -51,7 +51,7 @@ public class ItemPickup : MonoBehaviour
     void Update()
     {
         if (inReach == true && !followhand)
-        {           
+        {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (GetItemIntoSlot())
@@ -67,12 +67,12 @@ public class ItemPickup : MonoBehaviour
                         temp.onHand = followhand;
                     }
                     Item.SetActive(false);
-                }               
+                }
             }
         }
-        else if(followhand)
+        else if (followhand)
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1)) { Item.SetActive(true);}
+            if (Input.GetKeyDown(KeyCode.Alpha1)) { Item.SetActive(true); }
             transform.position = hand.position;
             transform.rotation = hand.rotation;
         }
@@ -82,7 +82,7 @@ public class ItemPickup : MonoBehaviour
         for (int i = 0; i < Slots.ItemInSlot.Length; i++)
         {
             if (!Slots.IsFull[i])
-            {                
+            {
                 Slots.ItemInSlot[i] = Item;
                 Slots.IsFull[i] = true;
                 return true;
@@ -95,3 +95,6 @@ public class ItemPickup : MonoBehaviour
         pickup.PlayOneShot(pickupSound);
     }
 }
+
+
+
