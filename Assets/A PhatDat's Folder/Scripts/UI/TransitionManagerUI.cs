@@ -37,7 +37,8 @@ public class TransitionManagerUI : MonoBehaviour
     public void Game()
     {
         // Load scene SingleplayerScene
-        Loader.Load(Loader.Scene.GameScene);
+        //Loader.Load(Loader.Scene.GameScene);
+        Loader.Load(Loader.Scene.SampleScene);
     }
 
     public void Exit()

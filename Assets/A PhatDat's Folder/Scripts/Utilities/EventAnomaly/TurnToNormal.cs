@@ -17,17 +17,6 @@ public class TurnToNormal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        if (UIManager.Instance != null)
-        {
-            UIManager.Instance.hideToggleUI();
-        }
-        else
-        {
-            Debug.LogWarning("UIManager không có trong ứng dụng");
-        }
-
-
         inCameraReach = false;                   //player not in zone       
         ena = false;
         _photoCD = Camera.GetComponent<Photograph>()._photoCD;
@@ -44,7 +33,6 @@ public class TurnToNormal : MonoBehaviour
     {
         if (other.gameObject.tag == "CameraReach")  //if player in zone
         {
-            UIManager.Instance.showToggleUI();
             inCameraReach = true;
         }
     }
@@ -55,29 +43,51 @@ public class TurnToNormal : MonoBehaviour
         if (other.gameObject.tag == "CameraReach")
         {
             inCameraReach = false;
-            UIManager.Instance.hideToggleUI();
         }
     }
+    //public void CameraContact()
+    //{
+    //    if (Camera.activeSelf)
+    //    {
+    //        ena = true;
+
+    //        if (inCameraReach == true && Input.GetKeyDown(KeyCode.F) && !_photoCD.IsOutOfUseTime)           //if in zone and press F key
+    //        {
+    //            ch.enabled = false;
+    //            anomaly.SetActive(false);
+    //            ch.normal.SetActive(true);
+    //            test.PlayOneShot(sound);
+    //            inCameraReach = false;
+    //            triggerNumber.Decrease();
+    //            gameObject.GetComponent<AnomalyCount>().enabled = true;
+    //        }
+
+    //    }
+    //    else ena = false;
+    //}
     public void CameraContact()
     {
         if (Camera.activeSelf)
         {
             ena = true;
 
-            if (inCameraReach == true && Input.GetKeyDown(KeyCode.F) && !_photoCD.IsOutOfUseTime)           //if in zone and press F key
+            if (inCameraReach == true && !_photoCD.IsOutOfUseTime)  // Kiểm tra zone và thời gian sử dụng
             {
+                // Xử lý chuyển anomaly về bình thường
                 ch.enabled = false;
                 anomaly.SetActive(false);
                 ch.normal.SetActive(true);
                 test.PlayOneShot(sound);
                 inCameraReach = false;
-                UIManager.Instance.hideToggleUI();
                 triggerNumber.Decrease();
                 gameObject.GetComponent<AnomalyCount>().enabled = true;
             }
-
         }
-        else ena = false;
+        else
+        {
+            ena = false;
+        }
     }
+
 
 }
