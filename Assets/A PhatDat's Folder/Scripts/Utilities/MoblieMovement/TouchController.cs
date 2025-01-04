@@ -142,10 +142,19 @@ public class TouchController : MonoBehaviour
             }
 
             // Nếu có ánh sáng, bật hoặc tắt ánh sáng
-            LightOnOffMobile lightScript = FindObjectOfType<LightOnOffMobile>();
-            if (lightScript != null && lightScript.PlayerInZone)
+            // LightOnOffMobile lightScript = FindObjectOfType<LightOnOffMobile>();
+            // if (lightScript != null && lightScript.PlayerInZone == true)
+            // {
+            //     Debug.Log("Gọi hàm ToggleLight() từ LightOnOffMobile.");
+            //     lightScript.ToggleLight();
+            // }
+            // else
+            // {
+            //     Debug.LogError("Không tìm thấy LightOnOffMobile trong Scene.");
+            // }
+            if (LightOnOffMobile.currentTarget != null)
             {
-                lightScript.ToggleLight();
+                LightOnOffMobile.currentTarget.ToggleLight();
             }
 
             // Nếu có các vật phẩm có thể nhặt, thực hiện hành động với chúng
