@@ -6,12 +6,6 @@ public class AudioManager : MonoBehaviour
     // Đối tượng duy nhất tồn tại trong toàn bộ ứng dụng, giúp quản lý âm thanh tập trung và tránh xung đột
     public static AudioManager Instance { get; private set; }
 
-    [Header("Audio Sources")]
-    public AudioSource winSound;
-    public AudioSource loseSound;
-    public AudioSource jumpScareSound;
-    public AudioSource backGroundSound;
-
     [Header("Audio Mixer")]
     public AudioMixer audioMixer; // Gắn Audio Mixer tại đây
 
@@ -26,51 +20,6 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-    }
-
-    // Chơi nhạc win
-    public void PlayWinSound()
-    {
-        if (winSound != null)
-        {
-            winSound.Play();
-        }
-    }
-
-    // Chơi nhạc lose
-    public void PlayLoseSound()
-    {
-        if (loseSound != null)
-        {
-            loseSound.Play();
-        }
-    }
-
-    // Chơi âm thanh jump scare
-    public void PlayJumpScareSound()
-    {
-        if (jumpScareSound != null)
-        {
-            jumpScareSound.Play();
-        }
-    }
-
-    // Chơi nhạc nền
-    public void PlayBackgroundSound()
-    {
-        if (backGroundSound != null && !backGroundSound.isPlaying)
-        {
-            backGroundSound.Play();
-        }
-    }
-
-    // Dừng nhạc nền
-    public void StopBackgroundSound()
-    {
-        if (backGroundSound != null && backGroundSound.isPlaying)
-        {
-            backGroundSound.Stop();
         }
     }
 

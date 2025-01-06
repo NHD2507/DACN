@@ -117,9 +117,9 @@ public class Photograph : MonoBehaviour
         {
             if (!isActive)
             {
-                StartCoroutine(ActivateFlashlightForOneSecond());
                 audioSource.clip = sound1;
                 audioSource.Play();
+                StartCoroutine(ActivateFlashlightForOneSecond());
             }
         }
     }

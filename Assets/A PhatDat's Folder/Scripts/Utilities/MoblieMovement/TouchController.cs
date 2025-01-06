@@ -149,24 +149,31 @@ public class TouchController : MonoBehaviour
                 LightOnOffMobile.currentTarget.ToggleLight();
             }
 
+            if (Breaker.currentTarget != null)
+            {
+                Breaker.currentTarget.ToggleBreaker();
+            }
+
             // Nếu có các vật phẩm có thể nhặt, thực hiện hành động với chúng
             ItemPickupMobile[] itemPickups = FindObjectsOfType<ItemPickupMobile>();
             foreach (ItemPickupMobile itemPickup in itemPickups)
             {
-                if (itemPickup.inReach)
+                if (itemPickup != null && itemPickup.inReach)
                 {
                     itemPickup.Update();
                 }
             }
 
             // Gọi phương thức mở/tắt radio trong script TurnOnOffRadio
-            if (radioScript != null)
+            if (radioScript != null && radioScript.PlayerInZone)  // Chỉ thực thi khi ở gần radio
             {
                 // Đổi trạng thái của radio
                 radioScript.IsOpened = !radioScript.IsOpened;
-                radioScript.OpenCloseRadio();
+                radioScript.OnOffRadio();
             }
+
         }
+
         if (InteractButton != null && !InteractButton.Pressed)
         {
             interactButtonPressed = false;

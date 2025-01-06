@@ -31,6 +31,16 @@ public class TransitionManagerUI : MonoBehaviour
             // Cập nhật camera hiện tại và tăng priority
             currentCamera = target;
             currentCamera.Priority++;
+
+            Debug.Log($"Camera switched to: {currentCamera.name}");
+
+            // Force Cinemachine Brain cập nhật
+            CinemachineBrain brain = Camera.main.GetComponent<CinemachineBrain>();
+            if (brain != null)
+            {
+                brain.enabled = false;
+                brain.enabled = true;
+            }
         }
     }
 

@@ -4,94 +4,98 @@ using UnityEngine;
 
 public class TurnOnOffRadio : MonoBehaviour
 {
-    private bool PlayerInZone;
-    public AudioSource radio;        // Audio source
-    public AudioSource on;        // Audio source
-    public AudioSource off;        // Audio source
+    public bool PlayerInZone;         // Biến kiểm tra xem người chơi có trong khu vực tương tác không
+    public AudioSource radio;         // Audio source phát ra âm thanh của radio
+    public AudioSource on;            // Audio source phát ra âm thanh khi bật radio
+    public AudioSource off;           // Audio source phát ra âm thanh khi tắt radio
 
-    public bool IsOpened;
+    public bool IsOpened;             // Biến kiểm tra trạng thái của radio (đã bật hay chưa)
 
-    // Start is called before the first frame update
+    // Phương thức khởi tạo ban đầu, được gọi trước khi frame đầu tiên chạy
     void Start()
     {
-        StartCoroutine(ActivateRadioAfterFewSeconds());
+        StartCoroutine(ActivateRadioAfterFewSeconds());  // Bắt đầu coroutine để kích hoạt radio sau vài giây
 
-        // Kiểm tra nếu UIManager đã tồn tại 
+        // Kiểm tra xem UIManager có tồn tại không
         if (UIManager.Instance != null)
         {
-            UIManager.Instance.hideToggleUI();
+            UIManager.Instance.hideToggleUI();  // Ẩn UI toggle khi bắt đầu
         }
         else
         {
-            Debug.LogWarning("UIManager không có trong ứng dụng");
+            Debug.LogWarning("UIManager không có trong ứng dụng");  // Cảnh báo nếu không tìm thấy UIManager
         }
     }
 
-    // Update is called once per frame
+    // Phương thức Update, chạy mỗi frame
     void Update()
     {
-        if (PlayerInZone && Input.GetKeyDown(KeyCode.E))  // If in zone and press 'E' key
+        // Kiểm tra nếu người chơi ở trong khu vực và nhấn phím 'E'
+        if (PlayerInZone && Input.GetKeyDown(KeyCode.E))
         {
-            IsOpened = !IsOpened;
-            OpenCloseRadio();
+            IsOpened = !IsOpened;  // Đảo ngược trạng thái của radio (bật/tắt)
+            OnOffRadio();  // Gọi phương thức OnOffRadio để thực hiện hành động bật/tắt radio
         }
     }
 
-    public void OpenCloseRadio()
+    // Phương thức bật/tắt radio
+    public void OnOffRadio()
     {
-        if (IsOpened)
+        if (IsOpened == true)  // Nếu radio đang bật
         {
-            // Play the sound for turning the radio on
+            // Phát âm thanh khi bật radio
             if (on != null)
             {
-                on.Play();
+                on.Play();  // Phát âm thanh bật radio
             }
 
-            // Start playing radio sound
+            // Bắt đầu phát âm thanh của radio nếu radio chưa phát
             if (radio != null && !radio.isPlaying)
             {
-                radio.Play();
+                radio.Play();  // Phát âm thanh của radio
             }
         }
-        else
+        else  // Nếu radio đang tắt
         {
-            // Stop the radio sound and play the sound for turning the radio off
+            // Dừng phát âm thanh của radio và phát âm thanh tắt radio
             if (radio != null && radio.isPlaying)
             {
-                radio.Stop();
+                radio.Stop();  // Dừng phát radio
             }
 
             if (off != null)
             {
-                off.Play();
+                off.Play();  // Phát âm thanh tắt radio
             }
         }
     }
 
+    // Phương thức gọi khi người chơi vào khu vực tương tác
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Reach"))  // If player enters the zone
+        if (other.gameObject.CompareTag("Reach"))  // Kiểm tra nếu đối tượng có tag "Reach"
         {
-            UIManager.Instance.showToggleUI();
-            PlayerInZone = true;
+            UIManager.Instance.showToggleUI();  // Hiển thị UI toggle khi người chơi vào khu vực
+            PlayerInZone = true;  // Đánh dấu là người chơi đang trong khu vực tương tác
         }
     }
 
-    private void OnTriggerExit(Collider other)  // If player exits the zone
+    // Phương thức gọi khi người chơi rời khỏi khu vực tương tác
+    private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Reach"))
+        if (other.gameObject.CompareTag("Reach"))  // Kiểm tra nếu đối tượng có tag "Reach"
         {
-            PlayerInZone = false;
-            UIManager.Instance.hideToggleUI();
+            PlayerInZone = false;  // Đánh dấu là người chơi không còn trong khu vực
+            UIManager.Instance.hideToggleUI();  // Ẩn UI toggle khi người chơi rời khỏi khu vực
         }
     }
 
-    // Coroutine to activate radio after a few seconds
+    // Coroutine để kích hoạt radio sau vài giây
     IEnumerator ActivateRadioAfterFewSeconds()
     {
-        IsOpened = false;
-        yield return new WaitForSeconds(60f);  // Wait for 60 seconds
-        IsOpened = true;
-        OpenCloseRadio();
+        IsOpened = false;  // Đặt radio ban đầu ở trạng thái tắt
+        yield return new WaitForSeconds(10f);  // Chờ trong 10 giây
+        IsOpened = true;  // Đặt radio ở trạng thái bật
+        OnOffRadio();  // Gọi phương thức bật radio
     }
 }

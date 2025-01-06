@@ -3323,7 +3323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.003000021}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &602552708
@@ -3347,7 +3347,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\nTr\u1EA7n Ph\xE1t \u0110\u1EA1t\nNguy\u1EC5n H\u1EEFu \u0110\u1EA1t\nL\xEA
-    Thanh T\xF9ng\nFrom Hutech University"
+    Thanh T\xF9ng\nTr\u1EA7n Nguy\xEAn V\u0169\nTr\u1EA7n Ch\xED Khanh\nFrom Hutech
+    University"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a9c41000811758d4486295e4a33fc2dc, type: 2}
   m_sharedMaterial: {fileID: 1562700284902217859, guid: a9c41000811758d4486295e4a33fc2dc, type: 2}
@@ -3374,8 +3375,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.15
+  m_fontSizeBase: 0.15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11858,7 +11859,6 @@ GameObject:
   - component: {fileID: 2143363440}
   - component: {fileID: 2143363439}
   - component: {fileID: 2143363441}
-  - component: {fileID: 2143363442}
   m_Layer: 5
   m_Name: SettingPanel
   m_TagString: Untagged
@@ -11939,23 +11939,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143363436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e632734d41f1c48a1d2143606ee27c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  masterSlider: {fileID: 39238304}
-  musicSlider: {fileID: 1634316158}
-  sfxSlider: {fileID: 91490789}
-  audioMixer: {fileID: 24100000, guid: 1ad6b6cd655119a419f231e8bb931d54, type: 2}
---- !u!114 &2143363442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143363436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd06b41bf6a5d3e4b9e6d43600c2fe28, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c5c875e8500c484f9cf5230c9385d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   masterSlider: {fileID: 39238304}
