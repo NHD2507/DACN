@@ -21,6 +21,9 @@ public class TouchController : MonoBehaviour
 
     public EscMenuUI escMenuUI;  // Menu thoát
 
+    // Tham chiếu đến script TurnOnOffRadio
+    public TurnOnOffRadio radioScript;
+
     // Các trạng thái của nút
     private bool interactButtonPressed;
     private bool switchItemButtonPressed;
@@ -141,17 +144,6 @@ public class TouchController : MonoBehaviour
                 OpenCloseDoorMobile.currentTarget.HandleInteraction();
             }
 
-            // Nếu có ánh sáng, bật hoặc tắt ánh sáng
-            // LightOnOffMobile lightScript = FindObjectOfType<LightOnOffMobile>();
-            // if (lightScript != null && lightScript.PlayerInZone == true)
-            // {
-            //     Debug.Log("Gọi hàm ToggleLight() từ LightOnOffMobile.");
-            //     lightScript.ToggleLight();
-            // }
-            // else
-            // {
-            //     Debug.LogError("Không tìm thấy LightOnOffMobile trong Scene.");
-            // }
             if (LightOnOffMobile.currentTarget != null)
             {
                 LightOnOffMobile.currentTarget.ToggleLight();
@@ -165,6 +157,14 @@ public class TouchController : MonoBehaviour
                 {
                     itemPickup.Update();
                 }
+            }
+
+            // Gọi phương thức mở/tắt radio trong script TurnOnOffRadio
+            if (radioScript != null)
+            {
+                // Đổi trạng thái của radio
+                radioScript.IsOpened = !radioScript.IsOpened;
+                radioScript.OpenCloseRadio();
             }
         }
         if (InteractButton != null && !InteractButton.Pressed)

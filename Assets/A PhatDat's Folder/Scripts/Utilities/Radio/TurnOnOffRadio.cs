@@ -1,80 +1,97 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class TurnOnOffRadio : MonoBehaviour
 {
-    public GameObject txtToDisplay;             //display the UI text
     private bool PlayerInZone;
-    public AudioSource audioSource;        //audio source
-    public AudioClip OnRadio;            //sound 1
-    public AudioClip OffRadio;
-    public AudioClip turtorial;
+    public AudioSource radio;        // Audio source
+    public AudioSource on;        // Audio source
+    public AudioSource off;        // Audio source
+
     public bool IsOpened;
-
-
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(ActivateRaidoAfter20Second());
+        StartCoroutine(ActivateRadioAfterFewSeconds());
+
+        // Kiểm tra nếu UIManager đã tồn tại 
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.hideToggleUI();
+        }
+        else
+        {
+            Debug.LogWarning("UIManager không có trong ứng dụng");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerInZone && Input.GetKeyDown(KeyCode.E))           //if in zone and press E key
+        if (PlayerInZone && Input.GetKeyDown(KeyCode.E))  // If in zone and press 'E' key
         {
             IsOpened = !IsOpened;
-            opencloseRadio();
+            OpenCloseRadio();
         }
-        
     }
-    void opencloseRadio()
+
+    public void OpenCloseRadio()
     {
-            if (IsOpened == true)
+        if (IsOpened)
+        {
+            // Play the sound for turning the radio on
+            if (on != null)
             {
-                audioSource.PlayOneShot(OnRadio);
-                audioSource.clip = turtorial;
-                audioSource.Play();
-            } 
-            else 
-            {
-                audioSource.clip = turtorial;
-                audioSource.Stop();
-                audioSource.PlayOneShot(OffRadio);
+                on.Play();
             }
+
+            // Start playing radio sound
+            if (radio != null && !radio.isPlaying)
+            {
+                radio.Play();
+            }
+        }
+        else
+        {
+            // Stop the radio sound and play the sound for turning the radio off
+            if (radio != null && radio.isPlaying)
+            {
+                radio.Stop();
+            }
+
+            if (off != null)
+            {
+                off.Play();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Reach")  //if player in zone
+        if (other.gameObject.CompareTag("Reach"))  // If player enters the zone
         {
-            txtToDisplay.SetActive(true);
+            UIManager.Instance.showToggleUI();
             PlayerInZone = true;
         }
     }
 
-
-    private void OnTriggerExit(Collider other)     //if player exit zone
+    private void OnTriggerExit(Collider other)  // If player exits the zone
     {
-        if (other.gameObject.tag == "Reach")
+        if (other.gameObject.CompareTag("Reach"))
         {
             PlayerInZone = false;
-            txtToDisplay.SetActive(false);
+            UIManager.Instance.hideToggleUI();
         }
     }
 
-    IEnumerator ActivateRaidoAfter20Second()
+    // Coroutine to activate radio after a few seconds
+    IEnumerator ActivateRadioAfterFewSeconds()
     {
         IsOpened = false;
-
-        yield return new WaitForSeconds(20f);
-
+        yield return new WaitForSeconds(60f);  // Wait for 60 seconds
         IsOpened = true;
-        opencloseRadio();
+        OpenCloseRadio();
     }
-
 }

@@ -6,7 +6,6 @@ using UnityEngine.Video;
 
 public class CutScreenEnd : MonoBehaviour
 {
-    [SerializeField] GameObject LoseMenuUI;//chỗ này bỏ menu End khi thua vào
     public RawImage loseImage;
     public VideoPlayer video;
     public AudioSource backgroundmusic;
@@ -15,7 +14,8 @@ public class CutScreenEnd : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        loseImage.gameObject.SetActive(false);
+        //loseImage.gameObject.SetActive(false);
+        ShowCutScreen();
     }
 
     // Update is called once per frame
@@ -43,10 +43,9 @@ public class CutScreenEnd : MonoBehaviour
 
         yield return new WaitForSeconds(6f);
 
-
         loseImage.gameObject.SetActive(false);
         video.gameObject.SetActive(false);
-        LoseMenuUI.gameObject.SetActive(true);
+        UIManager.Instance.ShowLosePanel(); // Gọi hàm từ UIManager
 
         Time.timeScale = 0;
         Cursor.visible = true; // Hiển thị con trỏ chuột
