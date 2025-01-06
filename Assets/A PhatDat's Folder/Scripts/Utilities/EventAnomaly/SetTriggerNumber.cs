@@ -9,10 +9,10 @@ public class SetTriggerNumber : MonoBehaviour
     public GameObject TriggerAction; // Chinh thanh jumpscare sao cho phu hop
     [Header("readonly")]
     public int TriggersCount;
-    public void Increase(){TriggersCount++;}
-    public void Decrease() { TriggersCount--;}
+    public void Increase() { TriggersCount++; }
+    public void Decrease() { TriggersCount--; }
 
-    public void Update()
+    public void Update() 
     {
         if (_cooldown.IsCoolingDown) return;
         if(TriggersCount == TriggersNumber)

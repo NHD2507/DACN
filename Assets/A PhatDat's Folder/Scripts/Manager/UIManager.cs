@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class UIManager : MonoBehaviour
 {
@@ -47,11 +48,32 @@ public class UIManager : MonoBehaviour
         toggleUI.SetActive(false);
     }
 
+    public void ShowWinPanel()
+    {
+        winPanelUI.SetActive(true);
+    }
+
+    public void ShowLosePanel()
+    {
+        losePanelUI.SetActive(true);
+    }
 
     private void SetUnactiveUI ()
     {
         toggleUI.SetActive(false);
         losePanelUI.SetActive(false);
         winPanelUI.SetActive(false);
-    }    
+    }
+
+    public void OnClickBackToMenu()
+    {
+        Loader.Load(Loader.Scene.MainMenuScene);
+    }
+    
+    public void OnClickRestart()
+    {
+        Loader.Load(Loader.Scene.SampleScene);
+    }
+    
+
 }
