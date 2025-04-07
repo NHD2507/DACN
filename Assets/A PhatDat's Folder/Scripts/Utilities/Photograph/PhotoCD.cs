@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Đây là code hồi lại thời gian sử dụng của máy ảnh trong game.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]

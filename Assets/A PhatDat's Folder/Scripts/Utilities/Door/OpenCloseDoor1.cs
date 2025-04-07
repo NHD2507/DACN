@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Đây là code cho đóng mở cửa, có âm thanh và UI thông báo cho người chơi biết có thể mở cửa hay không
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

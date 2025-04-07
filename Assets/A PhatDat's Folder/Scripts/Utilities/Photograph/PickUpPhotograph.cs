@@ -1,3 +1,4 @@
+//Đây là script để nhặt ảnh trong game.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

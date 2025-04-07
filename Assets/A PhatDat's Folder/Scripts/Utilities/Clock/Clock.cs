@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//Đây là code cho clock chạy từ 10h sáng đến 6h tối trong Unity
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class Clock : MonoBehaviour
 {
     public Transform hourHand;
     public Transform minuteHand;
-
+    
     private const float hoursToDegrees = 360f / 12f; // Số độ mỗi giờ
     private const float minutesToDegrees = 360f / 60f; // Số độ mỗi phút
     // Lấy thời gian bắt đầu và thời gian kết thúc cho kim giờ
