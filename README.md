@@ -8,7 +8,7 @@ Trong trò chơi, người chơi phải sử dụng **máy ảnh** để chụp 
 
 Tuy nhiên, không chỉ có anomaly, người chơi còn phải **né tránh sự truy đuổi của quái vật** luôn rình rập xung quanh. Việc **kết hợp khám phá, chiến lược và sinh tồn** sẽ quyết định liệu người chơi có thể sống sót đến **6h sáng** hay không.  
 
----
+----
 
 ## **🎮 Hướng Dẫn Cách Chơi**  
 - Khi bắt đầu, người chơi sẽ xuất hiện **bên cạnh giường trong một căn phòng** của ngôi nhà.  
@@ -18,7 +18,7 @@ Tuy nhiên, không chỉ có anomaly, người chơi còn phải **né tránh s�
 - Người chơi có thể **tương tác với cửa và công tắc** bằng **nút bàn tay**.  
 - **Chụp ảnh anomaly** sẽ khiến nó biến mất và trở lại bình thường.  
 
----
+----
 
 ## **📻 Cảnh Báo Từ Radio**  
 Radio sẽ cảnh báo về những **vụ mất tích bí ẩn** và các hiện tượng siêu nhiên như:  
@@ -28,12 +28,13 @@ Radio sẽ cảnh báo về những **vụ mất tích bí ẩn** và các hiệ
 
 **Người chơi cần phải sống sót đến 6h sáng** hoặc tìm cách thoát ra ngoài.  
 
----
+----
 
 ## **🎯 Điều Kiện Thắng**  
 ✅ Trụ vững đến **6h sáng** bằng cách **liên tục tìm và chụp anomaly** để đưa chúng về trạng thái bình thường.  
 
----
+----
+
 
 ## **❌ Điều Kiện Thua** (Từ 12h đêm đến 6h sáng)  
 🚨 **Thua cuộc nếu:**  
