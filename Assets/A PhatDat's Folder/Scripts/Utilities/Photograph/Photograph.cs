@@ -71,6 +71,8 @@
 //    }
 //}
 
+//Đây là code cho máy ảnh dùng để biến các anomaly trở lại bình thường
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
